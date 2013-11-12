@@ -10,4 +10,16 @@
 
 @interface ViewController : UIViewController
 
+@property (assign , nonatomic) NSInteger startingInteger;
+@property (assign , nonatomic) NSInteger endingInteger;
+@property (assign , nonatomic) CGFloat deltaX;
+@property (assign , nonatomic) NSInteger number;
+
+
+
+
+
+@property (weak , nonatomic) IBOutlet UITextField *functionInputField;
+@property (weak , nonatomic) IBOutlet UILabel *outputLabel;
+
 @end
