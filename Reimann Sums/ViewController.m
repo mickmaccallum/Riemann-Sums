@@ -36,7 +36,7 @@ static NSString *var = @"x";
     [self.view endEditing:YES];
 
     [self checkValidityOfFields];
-    
+
     NSLog(@"Starting: %f",self.startingNumber);
     NSLog(@"Ending: %f",self.endingNumber);
     NSLog(@"Rectangles: %f",self.number);
