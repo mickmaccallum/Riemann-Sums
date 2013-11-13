@@ -6,7 +6,10 @@
 //  Copyright (c) 2013 HappTech Development. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
+#import "DDMathParser.h"
+#import "MBProgressHUD.h"
 
 @interface ViewController : UIViewController < UITextFieldDelegate >
 

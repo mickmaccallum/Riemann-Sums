@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "DDMathParser.h"
 
 static NSString *var = @"x";
 
@@ -48,32 +47,43 @@ static NSString *var = @"x";
     NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
     NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
 
-    CGFloat total = 0.0;
+    __block CGFloat total = 0.0;
 
-    if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-        // left sum
-        for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
-
-            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
-
-            NSLog(@"Adding: %f",fOfX.doubleValue);
-            total += fOfX.doubleValue;
-        }
-    }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-        // right sum
-        for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
-
-            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
-
-            total += fOfX.doubleValue;
-        }
+    if (self.number > 10) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:@"Working"];
     }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
 
-    total *= deltaX;
+        if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
+            // left sum
+            for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
 
-    [self.outputLabel setText:[NSString stringWithFormat:@"%.4f",total]];
+                NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+                NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+
+                total += fOfX.doubleValue;
+            }
+        }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
+            // right sum
+            for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
+
+                NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+                NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+
+                total += fOfX.doubleValue;
+            }
+        }
+        
+        total *= deltaX;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([MBProgressHUD HUDForView:self.view]) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+            [self.outputLabel setText:[NSString stringWithFormat:@"%.4f",total]];
+        });
+    });
 }
 
 - (BOOL)inputIsValid:(NSString *)input
