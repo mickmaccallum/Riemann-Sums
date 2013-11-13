@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "DDMathParser.h"
 
+static NSString *var = @"x";
+
 @interface ViewController ()
 
 @end
@@ -20,47 +22,102 @@
     [super viewDidLoad];
     [self.functionInputField setDelegate:self];
 
-    self.startingInteger = 0;
-    self.endingInteger = 4;
-    self.number = 4;
+    self.startingNumber = 0.0;
+    self.endingNumber = 4.0;
+    self.number = 4.0;
+
+    [self.functionInputField becomeFirstResponder];
 }
+
 
 
 - (IBAction)startApproximation:(UIButton *)sender
 {
-    self.deltaX = (CGFloat)((self.endingInteger - self.startingInteger) / (CGFloat)self.number);
+    [self.view endEditing:YES];
 
-    NSString *function = [[self.functionInputField.text stringByReplacingOccurrencesOfString:@"x" withString:@"($x)"] stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
-    NSLog(@"f(x) = %@",function);
+    [self checkValidityOfFields];
+    
+    NSLog(@"Starting: %f",self.startingNumber);
+    NSLog(@"Ending: %f",self.endingNumber);
+    NSLog(@"Rectangles: %f",self.number);
 
-    CGFloat total = 0;
+    CGFloat deltaX = ((self.endingNumber - self.startingNumber) / self.number);
+    NSLog(@"DeltaX: %f",deltaX);
+
+    NSString *function = self.functionInputField.text;
+    NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
+    NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
+
+    CGFloat total = 0.0;
 
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-        // upper sum
-        for (NSInteger k = self.startingInteger; k <= self.endingInteger; k ++) {
+        // left sum
+        for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
 
-            NSDictionary *s = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:k] forKey:@"x"];
-            NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:s];
+            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
 
+            NSLog(@"Adding: %f",fOfX.doubleValue);
             total += fOfX.doubleValue;
-            NSLog(@"Total: %f",total);
         }
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-        // lower sum
-        for (NSInteger k = self.startingInteger; k <= self.endingInteger; k ++) {
+        // right sum
+        for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
 
-            NSDictionary *s = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:k] forKey:@"x"];
-            NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:s];
+            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
 
             total += fOfX.doubleValue;
-            NSLog(@"Total: %f",total);
         }
     }
 
-    total *= self.deltaX;
+    total *= deltaX;
 
-    NSLog(@"Area: %f U^2",total);
-    [self.outputLabel setText:[NSString stringWithFormat:@"%.2f",total]];
+    [self.outputLabel setText:[NSString stringWithFormat:@"%.4f",total]];
+}
+
+- (BOOL)inputIsValid:(NSString *)input
+{
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+
+    return [formatter numberFromString:input] != nil;
+}
+
+- (void)checkValidityOfFields
+{
+    if (self.startingNumberField.text.length > 0) {
+        if ([self inputIsValid:self.startingNumberField.text]) {
+            self.startingNumber = [self.startingNumberField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"From\""];
+        }
+    }
+
+    if (self.endingNumberField.text.length > 0) {
+        if ([self inputIsValid:self.endingNumberField.text]) {
+            self.endingNumber = [self.endingNumberField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"To\""];
+        }
+    }
+
+    if (self.numberOfRectanglesField.text.length > 0) {
+        if ([self inputIsValid:self.numberOfRectanglesField.text]) {
+            self.number = [self.numberOfRectanglesField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"Rectangles\""];
+        }
+    }
+}
+
+- (void)validationFailedForField:(NSString *)fieldName
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:[NSString stringWithFormat:@"%@ field contains non-numerical characters",fieldName]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Dismiss"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

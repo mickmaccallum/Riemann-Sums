@@ -600,6 +600,7 @@
 				009FE9BC1832A18700225788 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		009FE9BD1832A18700225788 /* Build configuration list for PBXNativeTarget "Reimann SumsTests" */ = {
 			isa = XCConfigurationList;
@@ -608,6 +609,7 @@
 				009FE9BF1832A18700225788 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
