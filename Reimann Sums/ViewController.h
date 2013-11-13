@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController < UITextFieldDelegate >
 
 @property (assign , nonatomic) NSInteger startingInteger;
 @property (assign , nonatomic) NSInteger endingInteger;
@@ -17,8 +17,7 @@
 
 
 
-
-
+@property (weak , nonatomic) IBOutlet UISegmentedControl *sumSelectionSegment;
 @property (weak , nonatomic) IBOutlet UITextField *functionInputField;
 @property (weak , nonatomic) IBOutlet UILabel *outputLabel;
 

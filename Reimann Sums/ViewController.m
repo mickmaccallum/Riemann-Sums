@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.functionInputField setDelegate:self];
 
     self.startingInteger = 0;
     self.endingInteger = 4;
@@ -34,13 +35,26 @@
 
     CGFloat total = 0;
 
-    for (NSInteger k = self.startingInteger; k <= self.endingInteger; k ++) {
+    if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
+        // upper sum
+        for (NSInteger k = self.startingInteger; k <= self.endingInteger; k ++) {
 
-        NSDictionary *s = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:k] forKey:@"x"];
-        NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:s];
+            NSDictionary *s = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:k] forKey:@"x"];
+            NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:s];
 
-        total += fOfX.doubleValue;
-        NSLog(@"Total: %f",total);
+            total += fOfX.doubleValue;
+            NSLog(@"Total: %f",total);
+        }
+    }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
+        // lower sum
+        for (NSInteger k = self.startingInteger; k <= self.endingInteger; k ++) {
+
+            NSDictionary *s = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:k] forKey:@"x"];
+            NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:s];
+
+            total += fOfX.doubleValue;
+            NSLog(@"Total: %f",total);
+        }
     }
 
     total *= self.deltaX;
@@ -49,6 +63,18 @@
     [self.outputLabel setText:[NSString stringWithFormat:@"%.2f",total]];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+- (IBAction)sumSegmentDidChangeValue:(UISegmentedControl *)sender
+{
+    [self.outputLabel setText:nil];
+    [self startApproximation:nil];
+}
 
 - (void)didReceiveMemoryWarning
 {

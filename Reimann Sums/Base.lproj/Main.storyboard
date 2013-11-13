@@ -51,12 +51,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iyb-aL-wdi">
+                                <rect key="frame" x="20" y="41" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Upper"/>
+                                    <segment title="Lower"/>
+                                </segments>
+                                <connections>
+                                    <action selector="sumSegmentDidChangeValue:" destination="vXZ-lx-hvc" eventType="valueChanged" id="DqV-wN-D5T"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="functionInputField" destination="gi9-Go-zEH" id="dah-Fl-bZy"/>
                         <outlet property="outputLabel" destination="PO3-Ra-Y3m" id="xdo-VI-Dvr"/>
+                        <outlet property="sumSelectionSegment" destination="iyb-aL-wdi" id="ek0-ku-dsB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
