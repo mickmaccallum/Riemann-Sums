@@ -36,12 +36,7 @@ static NSString *var = @"x";
 
     [self checkValidityOfFields];
 
-    NSLog(@"Starting: %f",self.startingNumber);
-    NSLog(@"Ending: %f",self.endingNumber);
-    NSLog(@"Rectangles: %f",self.number);
-
     CGFloat deltaX = ((self.endingNumber - self.startingNumber) / self.number);
-    NSLog(@"DeltaX: %f",deltaX);
 
     NSString *function = self.functionInputField.text;
     NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
@@ -81,7 +76,12 @@ static NSString *var = @"x";
             if ([MBProgressHUD HUDForView:self.view]) {
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
-            [self.outputLabel setText:[NSString stringWithFormat:@"%.4f",total]];
+
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            NSString *text = [formatter stringFromNumber:[NSNumber numberWithDouble:total]];
+
+            [self.outputLabel setText:text];
         });
     });
 }
