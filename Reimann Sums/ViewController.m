@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CalculatorObject.h"
 
 @interface ViewController ()
 
@@ -41,7 +42,21 @@
     [self.view endEditing:YES];
 
     [self checkValidityOfFields];
+    
+    ReimannSumDirection direction;
+    
+    if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
+        direction = ReimannSumDirectionLeft;
+    }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
+        direction = ReimannSumDirectionRight;
+    }
 
+    CGFloat total = [[CalculatorObject sharedInstance] areaUnderCurveOfFunction:self.functionInputField.text
+                                                                    startingAtX:self.startingNumberField.text.integerValue
+                                                                   andEndingAtX:self.endingNumberField.text.integerValue
+                                                                    inDirection:direction];
+    
+    NSLog(@"%f",total);
 
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
