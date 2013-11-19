@@ -43,6 +43,19 @@
 		009FEA001832A5E100225788 /* DDParserTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E91832A5E100225788 /* DDParserTypes.m */; };
 		009FEA011832A5E100225788 /* DDTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9EB1832A5E100225788 /* DDTypes.m */; };
 		009FEA021832A5E100225788 /* NSString+DDMathParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9ED1832A5E100225788 /* NSString+DDMathParsing.m */; };
+		00F71CE0183B940600CD2B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F71CDF183B940600CD2B69 /* Cocoa.framework */; };
+		00F71CEA183B940600CD2B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00F71CE8183B940600CD2B69 /* InfoPlist.strings */; };
+		00F71CEC183B940600CD2B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71CEB183B940600CD2B69 /* main.m */; };
+		00F71CF0183B940600CD2B69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 00F71CEE183B940600CD2B69 /* Credits.rtf */; };
+		00F71CF3183B940600CD2B69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71CF2183B940600CD2B69 /* AppDelegate.m */; };
+		00F71CF6183B940600CD2B69 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00F71CF4183B940600CD2B69 /* MainMenu.xib */; };
+		00F71CF8183B940600CD2B69 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F71CF7183B940600CD2B69 /* Images.xcassets */; };
+		00F71CFE183B940600CD2B69 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009FE9AA1832A18700225788 /* XCTest.framework */; };
+		00F71CFF183B940600CD2B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F71CDF183B940600CD2B69 /* Cocoa.framework */; };
+		00F71D07183B940600CD2B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00F71D05183B940600CD2B69 /* InfoPlist.strings */; };
+		00F71D09183B940600CD2B69 /* Reimann_Sums_MacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71D08183B940600CD2B69 /* Reimann_Sums_MacTests.m */; };
+		00F71D12183B946300CD2B69 /* CalculatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71D11183B946300CD2B69 /* CalculatorObject.m */; };
+		00F71D13183B946300CD2B69 /* CalculatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71D11183B946300CD2B69 /* CalculatorObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +65,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 009FE9871832A18700225788;
 			remoteInfo = "Reimann Sums";
+		};
+		00F71D00183B940600CD2B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 009FE9801832A18700225788 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 00F71CDD183B940600CD2B69;
+			remoteInfo = "Reimann Sums Mac";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -122,6 +142,26 @@
 		009FE9EB1832A5E100225788 /* DDTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTypes.m; sourceTree = "<group>"; };
 		009FE9EC1832A5E100225788 /* NSString+DDMathParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDMathParsing.h"; sourceTree = "<group>"; };
 		009FE9ED1832A5E100225788 /* NSString+DDMathParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDMathParsing.m"; sourceTree = "<group>"; };
+		00F71CDE183B940600CD2B69 /* Reimann Sums Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reimann Sums Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00F71CDF183B940600CD2B69 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		00F71CE2183B940600CD2B69 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		00F71CE3183B940600CD2B69 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		00F71CE4183B940600CD2B69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		00F71CE7183B940600CD2B69 /* Reimann Sums Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Reimann Sums Mac-Info.plist"; sourceTree = "<group>"; };
+		00F71CE9183B940600CD2B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		00F71CEB183B940600CD2B69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		00F71CED183B940600CD2B69 /* Reimann Sums Mac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reimann Sums Mac-Prefix.pch"; sourceTree = "<group>"; };
+		00F71CEF183B940600CD2B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		00F71CF1183B940600CD2B69 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		00F71CF2183B940600CD2B69 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		00F71CF5183B940600CD2B69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		00F71CF7183B940600CD2B69 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		00F71CFD183B940600CD2B69 /* Reimann Sums MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reimann Sums MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00F71D04183B940600CD2B69 /* Reimann Sums MacTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Reimann Sums MacTests-Info.plist"; sourceTree = "<group>"; };
+		00F71D06183B940600CD2B69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		00F71D08183B940600CD2B69 /* Reimann_Sums_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reimann_Sums_MacTests.m; sourceTree = "<group>"; };
+		00F71D10183B946300CD2B69 /* CalculatorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorObject.h; sourceTree = "<group>"; };
+		00F71D11183B946300CD2B69 /* CalculatorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +185,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00F71CDB183B940600CD2B69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71CE0183B940600CD2B69 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00F71CFA183B940600CD2B69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71CFF183B940600CD2B69 /* Cocoa.framework in Frameworks */,
+				00F71CFE183B940600CD2B69 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -160,8 +217,12 @@
 		009FE97F1832A18700225788 = {
 			isa = PBXGroup;
 			children = (
+				00F71D10183B946300CD2B69 /* CalculatorObject.h */,
+				00F71D11183B946300CD2B69 /* CalculatorObject.m */,
 				009FE9911832A18700225788 /* Reimann Sums */,
 				009FE9B01832A18700225788 /* Reimann SumsTests */,
+				00F71CE5183B940600CD2B69 /* Reimann Sums Mac */,
+				00F71D02183B940600CD2B69 /* Reimann Sums MacTests */,
 				009FE98A1832A18700225788 /* Frameworks */,
 				009FE9891832A18700225788 /* Products */,
 			);
@@ -172,6 +233,8 @@
 			children = (
 				009FE9881832A18700225788 /* Reimann Sums.app */,
 				009FE9A91832A18700225788 /* Reimann SumsTests.xctest */,
+				00F71CDE183B940600CD2B69 /* Reimann Sums Mac.app */,
+				00F71CFD183B940600CD2B69 /* Reimann Sums MacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +246,8 @@
 				009FE98D1832A18700225788 /* CoreGraphics.framework */,
 				009FE98F1832A18700225788 /* UIKit.framework */,
 				009FE9AA1832A18700225788 /* XCTest.framework */,
+				00F71CDF183B940600CD2B69 /* Cocoa.framework */,
+				00F71CE1183B940600CD2B69 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -284,6 +349,58 @@
 			name = DDMathParser;
 			sourceTree = "<group>";
 		};
+		00F71CE1183B940600CD2B69 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				00F71CE2183B940600CD2B69 /* AppKit.framework */,
+				00F71CE3183B940600CD2B69 /* CoreData.framework */,
+				00F71CE4183B940600CD2B69 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		00F71CE5183B940600CD2B69 /* Reimann Sums Mac */ = {
+			isa = PBXGroup;
+			children = (
+				00F71CF1183B940600CD2B69 /* AppDelegate.h */,
+				00F71CF2183B940600CD2B69 /* AppDelegate.m */,
+				00F71CF4183B940600CD2B69 /* MainMenu.xib */,
+				00F71CF7183B940600CD2B69 /* Images.xcassets */,
+				00F71CE6183B940600CD2B69 /* Supporting Files */,
+			);
+			path = "Reimann Sums Mac";
+			sourceTree = "<group>";
+		};
+		00F71CE6183B940600CD2B69 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00F71CE7183B940600CD2B69 /* Reimann Sums Mac-Info.plist */,
+				00F71CE8183B940600CD2B69 /* InfoPlist.strings */,
+				00F71CEB183B940600CD2B69 /* main.m */,
+				00F71CED183B940600CD2B69 /* Reimann Sums Mac-Prefix.pch */,
+				00F71CEE183B940600CD2B69 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		00F71D02183B940600CD2B69 /* Reimann Sums MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				00F71D08183B940600CD2B69 /* Reimann_Sums_MacTests.m */,
+				00F71D03183B940600CD2B69 /* Supporting Files */,
+			);
+			path = "Reimann Sums MacTests";
+			sourceTree = "<group>";
+		};
+		00F71D03183B940600CD2B69 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00F71D04183B940600CD2B69 /* Reimann Sums MacTests-Info.plist */,
+				00F71D05183B940600CD2B69 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -322,6 +439,41 @@
 			productReference = 009FE9A91832A18700225788 /* Reimann SumsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		00F71CDD183B940600CD2B69 /* Reimann Sums Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00F71D0E183B940600CD2B69 /* Build configuration list for PBXNativeTarget "Reimann Sums Mac" */;
+			buildPhases = (
+				00F71CDA183B940600CD2B69 /* Sources */,
+				00F71CDB183B940600CD2B69 /* Frameworks */,
+				00F71CDC183B940600CD2B69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Reimann Sums Mac";
+			productName = "Reimann Sums Mac";
+			productReference = 00F71CDE183B940600CD2B69 /* Reimann Sums Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		00F71CFC183B940600CD2B69 /* Reimann Sums MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00F71D0F183B940600CD2B69 /* Build configuration list for PBXNativeTarget "Reimann Sums MacTests" */;
+			buildPhases = (
+				00F71CF9183B940600CD2B69 /* Sources */,
+				00F71CFA183B940600CD2B69 /* Frameworks */,
+				00F71CFB183B940600CD2B69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00F71D01183B940600CD2B69 /* PBXTargetDependency */,
+			);
+			name = "Reimann Sums MacTests";
+			productName = "Reimann Sums MacTests";
+			productReference = 00F71CFD183B940600CD2B69 /* Reimann Sums MacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -332,6 +484,9 @@
 				ORGANIZATIONNAME = "HappTech Development";
 				TargetAttributes = {
 					009FE9A81832A18700225788 = {
+						TestTargetID = 009FE9871832A18700225788;
+					};
+					00F71CFC183B940600CD2B69 = {
 						TestTargetID = 009FE9871832A18700225788;
 					};
 				};
@@ -351,6 +506,8 @@
 			targets = (
 				009FE9871832A18700225788 /* Reimann Sums */,
 				009FE9A81832A18700225788 /* Reimann SumsTests */,
+				00F71CDD183B940600CD2B69 /* Reimann Sums Mac */,
+				00F71CFC183B940600CD2B69 /* Reimann Sums MacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -371,6 +528,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				009FE9B51832A18700225788 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00F71CDC183B940600CD2B69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71CEA183B940600CD2B69 /* InfoPlist.strings in Resources */,
+				00F71CF8183B940600CD2B69 /* Images.xcassets in Resources */,
+				00F71CF0183B940600CD2B69 /* Credits.rtf in Resources */,
+				00F71CF6183B940600CD2B69 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00F71CFB183B940600CD2B69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71D07183B940600CD2B69 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +573,7 @@
 				009FE9F01832A5E100225788 /* _DDFunctionTerm.m in Sources */,
 				009FE9F21832A5E100225788 /* _DDGroupTerm.m in Sources */,
 				009FE9F61832A5E100225788 /* _DDOperatorTerm.m in Sources */,
+				00F71D12183B946300CD2B69 /* CalculatorObject.m in Sources */,
 				009FE9F31832A5E100225788 /* _DDNumberExpression.m in Sources */,
 				009B0237183413EA00D572FF /* MBProgressHUD.m in Sources */,
 				009FE9F51832A5E100225788 /* _DDOperatorInfo.m in Sources */,
@@ -417,6 +594,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		00F71CDA183B940600CD2B69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71CF3183B940600CD2B69 /* AppDelegate.m in Sources */,
+				00F71CEC183B940600CD2B69 /* main.m in Sources */,
+				00F71D13183B946300CD2B69 /* CalculatorObject.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		00F71CF9183B940600CD2B69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00F71D09183B940600CD2B69 /* Reimann_Sums_MacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -424,6 +619,11 @@
 			isa = PBXTargetDependency;
 			target = 009FE9871832A18700225788 /* Reimann Sums */;
 			targetProxy = 009FE9AE1832A18700225788 /* PBXContainerItemProxy */;
+		};
+		00F71D01183B940600CD2B69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 00F71CDD183B940600CD2B69 /* Reimann Sums Mac */;
+			targetProxy = 00F71D00183B940600CD2B69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -448,6 +648,38 @@
 			isa = PBXVariantGroup;
 			children = (
 				009FE9B41832A18700225788 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		00F71CE8183B940600CD2B69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00F71CE9183B940600CD2B69 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		00F71CEE183B940600CD2B69 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00F71CEF183B940600CD2B69 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		00F71CF4183B940600CD2B69 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00F71CF5183B940600CD2B69 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		00F71D05183B940600CD2B69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				00F71D06183B940600CD2B69 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -595,6 +827,98 @@
 			};
 			name = Release;
 		};
+		00F71D0A183B940600CD2B69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reimann Sums Mac/Reimann Sums Mac-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Reimann Sums Mac/Reimann Sums Mac-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		00F71D0B183B940600CD2B69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reimann Sums Mac/Reimann Sums Mac-Prefix.pch";
+				INFOPLIST_FILE = "Reimann Sums Mac/Reimann Sums Mac-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		00F71D0C183B940600CD2B69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Reimann Sums.app/Reimann Sums";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reimann Sums Mac/Reimann Sums Mac-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Reimann Sums MacTests/Reimann Sums MacTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		00F71D0D183B940600CD2B69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Reimann Sums.app/Reimann Sums";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reimann Sums Mac/Reimann Sums Mac-Prefix.pch";
+				INFOPLIST_FILE = "Reimann Sums MacTests/Reimann Sums MacTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -624,6 +948,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		00F71D0E183B940600CD2B69 /* Build configuration list for PBXNativeTarget "Reimann Sums Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00F71D0A183B940600CD2B69 /* Debug */,
+				00F71D0B183B940600CD2B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		00F71D0F183B940600CD2B69 /* Build configuration list for PBXNativeTarget "Reimann Sums MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00F71D0C183B940600CD2B69 /* Debug */,
+				00F71D0D183B940600CD2B69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

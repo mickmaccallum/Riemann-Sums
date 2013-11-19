@@ -12,10 +12,6 @@ static NSString *var = @"x";
 
 @interface ViewController ()
 
-@property (assign , nonatomic) CGFloat startingNumber;
-@property (assign , nonatomic) CGFloat endingNumber;
-@property (assign , nonatomic) CGFloat number;
-
 
 
 @property (weak , nonatomic) IBOutlet UITextField *functionInputField;
@@ -36,10 +32,6 @@ static NSString *var = @"x";
 {
     [super viewDidLoad];
     [self.functionInputField setDelegate:self];
-
-    self.startingNumber = 0.0;
-    self.endingNumber = 4.0;
-    self.number = 4.0;
 
     [self.functionInputField becomeFirstResponder];
 }

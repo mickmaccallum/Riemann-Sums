@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Reimann Sums.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "00F71CFC183B940600CD2B69"
+               BuildableName = "Reimann Sums MacTests.xctest"
+               BlueprintName = "Reimann Sums MacTests"
+               ReferencedContainer = "container:Reimann Sums.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
