@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 
-static NSString *var = @"x";
-
 @interface ViewController ()
 
 
@@ -44,54 +42,13 @@ static NSString *var = @"x";
 
     [self checkValidityOfFields];
 
-    CGFloat deltaX = ((self.endingNumber - self.startingNumber) / self.number);
 
-    NSString *function = self.functionInputField.text;
-    NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
-    NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSString *text = [formatter stringFromNumber:[NSNumber numberWithDouble:total]];
+    
+    [self.outputLabel setText:text];
 
-    __block CGFloat total = 0.0;
-
-    if (self.number > 10) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud setLabelText:@"Working"];
-    }
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
-
-        if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-            // left sum
-            for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
-
-                NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-                NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
-
-                total += fOfX.doubleValue;
-            }
-        }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-            // right sum
-            for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
-
-                NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-                NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
-
-                total += fOfX.doubleValue;
-            }
-        }
-        
-        total *= deltaX;
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([MBProgressHUD HUDForView:self.view]) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }
-
-            NSNumberFormatter *formatter = [NSNumberFormatter new];
-            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-            NSString *text = [formatter stringFromNumber:[NSNumber numberWithDouble:total]];
-
-            [self.outputLabel setText:text];
-        });
-    });
 }
 
 - (BOOL)inputIsValid:(NSString *)input

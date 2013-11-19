@@ -10,6 +10,8 @@
 
 __strong static CalculatorObject *sharedInstance = nil;
 
+static NSString *var = @"x";
+
 @implementation CalculatorObject
 
 
@@ -33,6 +35,42 @@ __strong static CalculatorObject *sharedInstance = nil;
     }
     
     return self;
+}
+
+- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne inDirection:(ReimannSumDirection)direction
+{
+    CGFloat deltaX = ((self.endingNumber - self.startingNumber) / self.number);
+    
+    NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
+    NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
+    
+    __block CGFloat total = 0.0;
+    
+    
+    
+    if (direction == ReimannSumDirectionLeft) {
+            // left sum
+        for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
+            
+            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+            
+            total += fOfX.doubleValue;
+        }
+    }else if (direction == ReimannSumDirectionRight) {
+            // right sum
+        for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
+            
+            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
+            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+            
+            total += fOfX.doubleValue;
+        }
+    }
+    
+    total *= deltaX;
+    
+    return total;
 }
 
 - (void)resetDefaultValues
