@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		009B0237183413EA00D572FF /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 009B0236183413EA00D572FF /* MBProgressHUD.m */; };
 		009FE98C1832A18700225788 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009FE98B1832A18700225788 /* Foundation.framework */; };
 		009FE98E1832A18700225788 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009FE98D1832A18700225788 /* CoreGraphics.framework */; };
 		009FE9901832A18700225788 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009FE98F1832A18700225788 /* UIKit.framework */; };
@@ -97,8 +96,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		009B0235183413EA00D572FF /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		009B0236183413EA00D572FF /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		009FE9881832A18700225788 /* Reimann Sums.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reimann Sums.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		009FE98B1832A18700225788 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		009FE98D1832A18700225788 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -226,15 +223,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		009B0238183413F000D572FF /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				009B0235183413EA00D572FF /* MBProgressHUD.h */,
-				009B0236183413EA00D572FF /* MBProgressHUD.m */,
-			);
-			name = MBProgressHUD;
-			sourceTree = "<group>";
-		};
 		009FE97F1832A18700225788 = {
 			isa = PBXGroup;
 			children = (
@@ -282,7 +270,6 @@
 				009FE99D1832A18700225788 /* Main.storyboard */,
 				009FE9A01832A18700225788 /* ViewController.h */,
 				009FE9A11832A18700225788 /* ViewController.m */,
-				009B0238183413F000D572FF /* MBProgressHUD */,
 				009FE9A31832A18700225788 /* Images.xcassets */,
 				009FE9921832A18700225788 /* Supporting Files */,
 			);
@@ -597,7 +584,6 @@
 				009FE9F61832A5E100225788 /* _DDOperatorTerm.m in Sources */,
 				00F71D12183B946300CD2B69 /* CalculatorObject.m in Sources */,
 				009FE9F31832A5E100225788 /* _DDNumberExpression.m in Sources */,
-				009B0237183413EA00D572FF /* MBProgressHUD.m in Sources */,
 				009FE9F51832A5E100225788 /* _DDOperatorInfo.m in Sources */,
 				009FEA001832A5E100225788 /* DDParserTypes.m in Sources */,
 				009FE99C1832A18700225788 /* AppDelegate.m in Sources */,

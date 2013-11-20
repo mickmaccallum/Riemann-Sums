@@ -442,7 +442,7 @@ static inline DDExpression* _DDRTOD(DDExpression *e, DDMathEvaluator *evaluator,
 			
 			if ([upperBound integerValue] <= [lowerBound integerValue]) {
 				if (error != nil) {
-                    *error = ERR(DDErrorCodeInvalidArgument, @"upper bound (%ld) of random() must be larger than lower bound (%ld)", [upperBound integerValue], [lowerBound integerValue]);
+                    *error = ERR(DDErrorCodeInvalidArgument, @"upper bound (%ld) of random() must be larger than lower bound (%ld)", (long)[upperBound integerValue], (long)[lowerBound integerValue]);
 				}
 				return nil;
 			}

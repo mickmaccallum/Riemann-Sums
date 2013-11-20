@@ -78,7 +78,8 @@
         [d appendFormat:@"arity:%@, ", arityNames[arity]];
         
         NSInteger precedence = [self operatorPrecedence];
-        [d appendFormat:@"precedence:%ld, ", precedence];
+        [d appendFormat:@"precedence:%ld, ", (long)
+		 precedence];
         
         DDOperatorAssociativity assoc = [self operatorAssociativity];
         NSString *assocNames[2] = { @"LEFT", @"RIGHT" };
