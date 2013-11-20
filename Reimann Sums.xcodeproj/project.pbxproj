@@ -43,6 +43,27 @@
 		009FEA001832A5E100225788 /* DDParserTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E91832A5E100225788 /* DDParserTypes.m */; };
 		009FEA011832A5E100225788 /* DDTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9EB1832A5E100225788 /* DDTypes.m */; };
 		009FEA021832A5E100225788 /* NSString+DDMathParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9ED1832A5E100225788 /* NSString+DDMathParsing.m */; };
+		00AF17F6183C6356008046A1 /* _DDFunctionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9C21832A5E100225788 /* _DDFunctionContainer.m */; };
+		00AF17F7183C6373008046A1 /* _DDFunctionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9C41832A5E100225788 /* _DDFunctionExpression.m */; };
+		00AF17F8183C6373008046A1 /* _DDFunctionTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9C61832A5E100225788 /* _DDFunctionTerm.m */; };
+		00AF17F9183C6373008046A1 /* _DDFunctionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9C81832A5E100225788 /* _DDFunctionUtilities.m */; };
+		00AF17FA183C6373008046A1 /* _DDGroupTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9CA1832A5E100225788 /* _DDGroupTerm.m */; };
+		00AF17FB183C6373008046A1 /* _DDNumberExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9CC1832A5E100225788 /* _DDNumberExpression.m */; };
+		00AF17FC183C6373008046A1 /* _DDNumberTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9CE1832A5E100225788 /* _DDNumberTerm.m */; };
+		00AF17FD183C6373008046A1 /* _DDOperatorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9D01832A5E100225788 /* _DDOperatorInfo.m */; };
+		00AF17FE183C6373008046A1 /* _DDOperatorTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9D21832A5E100225788 /* _DDOperatorTerm.m */; };
+		00AF17FF183C6373008046A1 /* _DDParserTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9D41832A5E100225788 /* _DDParserTerm.m */; };
+		00AF1800183C6373008046A1 /* _DDRewriteRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9D61832A5E100225788 /* _DDRewriteRule.m */; };
+		00AF1801183C6373008046A1 /* _DDVariableExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9D81832A5E100225788 /* _DDVariableExpression.m */; };
+		00AF1802183C6373008046A1 /* _DDVariableTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9DA1832A5E100225788 /* _DDVariableTerm.m */; };
+		00AF1803183C6373008046A1 /* DDExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9DC1832A5E100225788 /* DDExpression.m */; };
+		00AF1804183C6373008046A1 /* DDMathEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9DE1832A5E100225788 /* DDMathEvaluator.m */; };
+		00AF1805183C6373008046A1 /* DDMathStringToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E31832A5E100225788 /* DDMathStringToken.m */; };
+		00AF1806183C6373008046A1 /* DDMathStringTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E51832A5E100225788 /* DDMathStringTokenizer.m */; };
+		00AF1807183C6373008046A1 /* DDParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E71832A5E100225788 /* DDParser.m */; };
+		00AF1808183C6373008046A1 /* DDParserTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9E91832A5E100225788 /* DDParserTypes.m */; };
+		00AF1809183C6373008046A1 /* DDTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9EB1832A5E100225788 /* DDTypes.m */; };
+		00AF180A183C6373008046A1 /* NSString+DDMathParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 009FE9ED1832A5E100225788 /* NSString+DDMathParsing.m */; };
 		00F71CE0183B940600CD2B69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F71CDF183B940600CD2B69 /* Cocoa.framework */; };
 		00F71CEA183B940600CD2B69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00F71CE8183B940600CD2B69 /* InfoPlist.strings */; };
 		00F71CEC183B940600CD2B69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F71CEB183B940600CD2B69 /* main.m */; };
@@ -219,6 +240,7 @@
 			children = (
 				00F71D10183B946300CD2B69 /* CalculatorObject.h */,
 				00F71D11183B946300CD2B69 /* CalculatorObject.m */,
+				009FE9C01832A5D600225788 /* DDMathParser */,
 				009FE9911832A18700225788 /* Reimann Sums */,
 				009FE9B01832A18700225788 /* Reimann SumsTests */,
 				00F71CE5183B940600CD2B69 /* Reimann Sums Mac */,
@@ -261,7 +283,6 @@
 				009FE9A01832A18700225788 /* ViewController.h */,
 				009FE9A11832A18700225788 /* ViewController.m */,
 				009B0238183413F000D572FF /* MBProgressHUD */,
-				009FE9C01832A5D600225788 /* DDMathParser */,
 				009FE9A31832A18700225788 /* Images.xcassets */,
 				009FE9921832A18700225788 /* Supporting Files */,
 			);
@@ -347,6 +368,7 @@
 				009FE9ED1832A5E100225788 /* NSString+DDMathParsing.m */,
 			);
 			name = DDMathParser;
+			path = "Reimann Sums";
 			sourceTree = "<group>";
 		};
 		00F71CE1183B940600CD2B69 /* Other Frameworks */ = {
@@ -598,8 +620,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AF17FC183C6373008046A1 /* _DDNumberTerm.m in Sources */,
+				00AF1802183C6373008046A1 /* _DDVariableTerm.m in Sources */,
+				00AF1806183C6373008046A1 /* DDMathStringTokenizer.m in Sources */,
+				00AF17FF183C6373008046A1 /* _DDParserTerm.m in Sources */,
+				00AF17F7183C6373008046A1 /* _DDFunctionExpression.m in Sources */,
+				00AF1807183C6373008046A1 /* DDParser.m in Sources */,
 				00F71CF3183B940600CD2B69 /* AppDelegate.m in Sources */,
+				00AF1804183C6373008046A1 /* DDMathEvaluator.m in Sources */,
+				00AF1809183C6373008046A1 /* DDTypes.m in Sources */,
+				00AF1803183C6373008046A1 /* DDExpression.m in Sources */,
+				00AF17F6183C6356008046A1 /* _DDFunctionContainer.m in Sources */,
+				00AF17F9183C6373008046A1 /* _DDFunctionUtilities.m in Sources */,
+				00AF180A183C6373008046A1 /* NSString+DDMathParsing.m in Sources */,
+				00AF17F8183C6373008046A1 /* _DDFunctionTerm.m in Sources */,
+				00AF17FA183C6373008046A1 /* _DDGroupTerm.m in Sources */,
+				00AF17FE183C6373008046A1 /* _DDOperatorTerm.m in Sources */,
+				00AF17FB183C6373008046A1 /* _DDNumberExpression.m in Sources */,
+				00AF17FD183C6373008046A1 /* _DDOperatorInfo.m in Sources */,
+				00AF1808183C6373008046A1 /* DDParserTypes.m in Sources */,
 				00F71CEC183B940600CD2B69 /* main.m in Sources */,
+				00AF1805183C6373008046A1 /* DDMathStringToken.m in Sources */,
+				00AF1801183C6373008046A1 /* _DDVariableExpression.m in Sources */,
+				00AF1800183C6373008046A1 /* _DDRewriteRule.m in Sources */,
 				00F71D13183B946300CD2B69 /* CalculatorObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

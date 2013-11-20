@@ -37,8 +37,6 @@ static NSString *var = @"x";
 {
     CGFloat deltaX = ((xSubOne - xNot) / rectangles);
     
-    NSLog(@"Delta: %f",deltaX);
-    
     __block CGFloat total = 0.0;
     
     switch (direction) {
@@ -66,9 +64,6 @@ static NSString *var = @"x";
                 NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
                 
                 total += fOfX.doubleValue;
-                
-                NSLog(@"Adding %f and new total is %f",fOfX.doubleValue,total);
-
             }
 
         }break;

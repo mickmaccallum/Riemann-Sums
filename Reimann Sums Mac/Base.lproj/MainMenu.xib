@@ -783,7 +783,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rhy-ZQ-T9u">
                         <rect key="frame" x="16" y="83" width="448" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="NHM-tu-2zK">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Result" id="NHM-tu-2zK">
                             <font key="font" metaFont="system" size="18"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
@@ -794,9 +794,11 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="directionSegment" destination="3QR-eH-2hq" id="SPY-sg-rtv"/>
                 <outlet property="endingField" destination="wV7-dk-0DM" id="LK1-fo-Jqv"/>
                 <outlet property="functionField" destination="eqy-OC-CjR" id="0vT-Jz-EYw"/>
                 <outlet property="numberOfRectanglesField" destination="fYo-Qg-TJF" id="3aE-wL-GEc"/>
+                <outlet property="resultsField" destination="Rhy-ZQ-T9u" id="Bhq-Ff-LEz"/>
                 <outlet property="startingField" destination="Buo-Xk-BbK" id="0Yy-vG-EW7"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
