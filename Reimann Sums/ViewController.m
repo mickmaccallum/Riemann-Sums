@@ -56,8 +56,9 @@
     NSString *function = [calculator functionPreparedForMathParserFromString:self.functionInputField.text];
     
     CGFloat total = [[CalculatorObject sharedInstance] areaUnderCurveOfFunction:function
-                                                                    startingAtX:self.startingNumberField.text.integerValue
-                                                                   andEndingAtX:self.endingNumberField.text.integerValue
+                                                                    startingAtX:self.startingNumberField.text.doubleValue
+                                                                   andEndingAtX:self.endingNumberField.text.doubleValue
+                                                         withNumberOfRectangles:self.numberOfRectanglesField.text.doubleValue
                                                                     inDirection:direction];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];

@@ -20,13 +20,10 @@ typedef enum ReimannSumDirection ReimannSumDirection;
 
 @interface CalculatorObject : NSObject
 
-@property (assign , nonatomic) double startingNumber;
-@property (assign , nonatomic) double endingNumber;
-@property (assign , nonatomic) double number;
-
-- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne inDirection:(ReimannSumDirection)direction;
+- (double)areaUnderCurveOfFunction:(NSString *)function startingAtX:(double)xNot andEndingAtX:(double)xSubOne withNumberOfRectangles:(double)rectangles inDirection:(ReimannSumDirection)direction;
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
+
 
 + (CalculatorObject *)sharedInstance;
 

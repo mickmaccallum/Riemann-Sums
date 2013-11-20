@@ -16,6 +16,8 @@ static NSString *var = @"x";
 
 
 
+
+
 + (CalculatorObject *)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -26,20 +28,16 @@ static NSString *var = @"x";
     return sharedInstance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self) {
-        [self resetDefaultValues];
-    }
-    
-    return self;
-}
 
-- (double)areaUnderCurveOfFunction:(NSString *)function startingAtX:(double)xNot andEndingAtX:(double)xSubOne inDirection:(ReimannSumDirection)direction
+- (double)areaUnderCurveOfFunction:(NSString *)function
+                       startingAtX:(double)xNot
+                      andEndingAtX:(double)xSubOne
+            withNumberOfRectangles:(double)rectangles
+                       inDirection:(ReimannSumDirection)direction
 {
-    double deltaX = ((self.endingNumber - self.startingNumber) / self.number);
+    double deltaX = ((xSubOne - xNot) / rectangles);
+    
+    NSLog(@"Delta: %f",deltaX);
     
     __block double total = 0.0;
     
@@ -50,13 +48,16 @@ static NSString *var = @"x";
          
         case ReimannSumDirectionLeft: {
             
-            for (double k = self.startingNumber; k < self.endingNumber; k += deltaX) {
+            for (double k = xNot; k < xSubOne - deltaX; k += deltaX) {
                 
                 NSDictionary *substitutions = @{var:@(k)};
                 NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
                 
+                double add = fOfX.doubleValue + total;
                 
-                total += fOfX.doubleValue;
+                total = add;
+                
+//                total += fOfX.doubleValue;
                 
                 NSLog(@"Adding %f and new total is %f",fOfX.doubleValue,total);
             }
@@ -65,7 +66,7 @@ static NSString *var = @"x";
          
         case ReimannSumDirectionRight: {
             
-            for (double k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
+            for (double k = xNot + 1; k <= xSubOne; k += deltaX) {
                 
                 NSDictionary *substitutions = @{var:@(k)};
                 NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
@@ -82,9 +83,9 @@ static NSString *var = @"x";
             break;
     }
     
-    total *= deltaX;
+    double final = total * deltaX;
     
-    return total;
+    return final;
 }
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function
@@ -95,11 +96,5 @@ static NSString *var = @"x";
     return varsSwapped;
 }
 
-- (void)resetDefaultValues
-{
-    self.startingNumber = 0.0;
-    self.endingNumber = 4.0;
-    self.number = 4.0;
-}
 
 @end
