@@ -29,17 +29,17 @@ static NSString *var = @"x";
 }
 
 
-- (double)areaUnderCurveOfFunction:(NSString *)function
-                       startingAtX:(double)xNot
-                      andEndingAtX:(double)xSubOne
-            withNumberOfRectangles:(double)rectangles
+- (CGFloat)areaUnderCurveOfFunction:(NSString *)function
+                       startingAtX:(CGFloat)xNot
+                      andEndingAtX:(CGFloat)xSubOne
+            withNumberOfRectangles:(CGFloat)rectangles
                        inDirection:(ReimannSumDirection)direction
 {
-    double deltaX = ((xSubOne - xNot) / rectangles);
+    CGFloat deltaX = ((xSubOne - xNot) / rectangles);
     
     NSLog(@"Delta: %f",deltaX);
     
-    __block double total = 0.0;
+    __block CGFloat total = 0.0;
     
     switch (direction) {
         case ReimannSumDirectionNone: {
@@ -48,25 +48,19 @@ static NSString *var = @"x";
          
         case ReimannSumDirectionLeft: {
             
-            for (double k = xNot; k < xSubOne - deltaX; k += deltaX) {
+            for (CGFloat k = xNot; k < xSubOne - deltaX; k += deltaX) {
                 
                 NSDictionary *substitutions = @{var:@(k)};
                 NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
                 
-                double add = fOfX.doubleValue + total;
-                
-                total = add;
-                
-//                total += fOfX.doubleValue;
-                
-                NSLog(@"Adding %f and new total is %f",fOfX.doubleValue,total);
+                total += fOfX.doubleValue;
             }
 
         }break;
          
         case ReimannSumDirectionRight: {
             
-            for (double k = xNot + 1; k <= xSubOne; k += deltaX) {
+            for (CGFloat k = xNot + deltaX; k <= xSubOne; k += deltaX) {
                 
                 NSDictionary *substitutions = @{var:@(k)};
                 NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
@@ -83,7 +77,7 @@ static NSString *var = @"x";
             break;
     }
     
-    double final = total * deltaX;
+    CGFloat final = total * deltaX;
     
     return final;
 }

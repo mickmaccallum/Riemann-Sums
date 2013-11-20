@@ -20,7 +20,7 @@ typedef enum ReimannSumDirection ReimannSumDirection;
 
 @interface CalculatorObject : NSObject
 
-- (double)areaUnderCurveOfFunction:(NSString *)function startingAtX:(double)xNot andEndingAtX:(double)xSubOne withNumberOfRectangles:(double)rectangles inDirection:(ReimannSumDirection)direction;
+- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne withNumberOfRectangles:(CGFloat)rectangles inDirection:(ReimannSumDirection)direction;
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 
