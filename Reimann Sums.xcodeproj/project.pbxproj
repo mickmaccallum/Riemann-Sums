@@ -956,6 +956,7 @@
 				00F71D0B183B940600CD2B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		00F71D0F183B940600CD2B69 /* Build configuration list for PBXNativeTarget "Reimann Sums MacTests" */ = {
 			isa = XCConfigurationList;
@@ -964,6 +965,7 @@
 				00F71D0D183B940600CD2B69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

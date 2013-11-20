@@ -10,8 +10,9 @@
 #import "DDMathParser.h"
 
 enum ReimannSumDirection {
-    ReimannSumDirectionLeft = 0,
-    ReimannSumDirectionRight = 0 << 1
+    ReimannSumDirectionNone = 0,
+    ReimannSumDirectionLeft = 2,
+    ReimannSumDirectionRight = 4
 };
 
 typedef enum ReimannSumDirection ReimannSumDirection;
@@ -19,11 +20,13 @@ typedef enum ReimannSumDirection ReimannSumDirection;
 
 @interface CalculatorObject : NSObject
 
-@property (assign , nonatomic) CGFloat startingNumber;
-@property (assign , nonatomic) CGFloat endingNumber;
-@property (assign , nonatomic) CGFloat number;
+@property (assign , nonatomic) double startingNumber;
+@property (assign , nonatomic) double endingNumber;
+@property (assign , nonatomic) double number;
 
 - (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne inDirection:(ReimannSumDirection)direction;
+
+- (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 
 + (CalculatorObject *)sharedInstance;
 

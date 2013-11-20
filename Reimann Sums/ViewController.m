@@ -41,9 +41,9 @@
 {
     [self.view endEditing:YES];
 
-    [self checkValidityOfFields];
+//    [self checkValidityOfFields];
     
-    ReimannSumDirection direction;
+    ReimannSumDirection direction = ReimannSumDirectionNone;
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
         direction = ReimannSumDirectionLeft;
@@ -51,13 +51,15 @@
         direction = ReimannSumDirectionRight;
     }
 
-    CGFloat total = [[CalculatorObject sharedInstance] areaUnderCurveOfFunction:self.functionInputField.text
+    CalculatorObject *calculator = [CalculatorObject sharedInstance];
+    
+    NSString *function = [calculator functionPreparedForMathParserFromString:self.functionInputField.text];
+    
+    CGFloat total = [[CalculatorObject sharedInstance] areaUnderCurveOfFunction:function
                                                                     startingAtX:self.startingNumberField.text.integerValue
                                                                    andEndingAtX:self.endingNumberField.text.integerValue
                                                                     inDirection:direction];
     
-    NSLog(@"%f",total);
-
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     NSString *text = [formatter stringFromNumber:[NSNumber numberWithDouble:total]];
@@ -119,8 +121,7 @@
 
 - (IBAction)sumSegmentDidChangeValue:(UISegmentedControl *)sender
 {
-    [self.outputLabel setText:nil];
-    [self startApproximation:nil];
+
 }
 
 - (void)didReceiveMemoryWarning

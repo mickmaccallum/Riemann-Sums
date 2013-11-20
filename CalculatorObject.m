@@ -37,40 +37,62 @@ static NSString *var = @"x";
     return self;
 }
 
-- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne inDirection:(ReimannSumDirection)direction
+- (double)areaUnderCurveOfFunction:(NSString *)function startingAtX:(double)xNot andEndingAtX:(double)xSubOne inDirection:(ReimannSumDirection)direction
 {
-    CGFloat deltaX = ((self.endingNumber - self.startingNumber) / self.number);
+    double deltaX = ((self.endingNumber - self.startingNumber) / self.number);
     
-    NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
-    NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
+    __block double total = 0.0;
     
-    __block CGFloat total = 0.0;
-    
-    
-    
-    if (direction == ReimannSumDirectionLeft) {
-            // left sum
-        for (CGFloat k = self.startingNumber; k < self.endingNumber; k += deltaX) {
+    switch (direction) {
+        case ReimannSumDirectionNone: {
             
-            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+        }break;
+         
+        case ReimannSumDirectionLeft: {
             
-            total += fOfX.doubleValue;
-        }
-    }else if (direction == ReimannSumDirectionRight) {
-            // right sum
-        for (NSInteger k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
+            for (double k = self.startingNumber; k < self.endingNumber; k += deltaX) {
+                
+                NSDictionary *substitutions = @{var:@(k)};
+                NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+                
+                
+                total += fOfX.doubleValue;
+                
+                NSLog(@"Adding %f and new total is %f",fOfX.doubleValue,total);
+            }
+
+        }break;
+         
+        case ReimannSumDirectionRight: {
             
-            NSDictionary *substitutions = @{var: [NSNumber numberWithDouble:k]};
-            NSNumber *fOfX = [varsSwapped numberByEvaluatingStringWithSubstitutions:substitutions];
+            for (double k = self.startingNumber + 1; k <= self.endingNumber; k += deltaX) {
+                
+                NSDictionary *substitutions = @{var:@(k)};
+                NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+                
+                total += fOfX.doubleValue;
+                
+                NSLog(@"Adding %f and new total is %f",fOfX.doubleValue,total);
+
+            }
+
+        }break;
             
-            total += fOfX.doubleValue;
-        }
+        default:
+            break;
     }
     
     total *= deltaX;
     
     return total;
+}
+
+- (NSString *)functionPreparedForMathParserFromString:(NSString *)function
+{
+    NSString *powersFixed = [function stringByReplacingOccurrencesOfString:@"^" withString:@"**"];
+    NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
+
+    return varsSwapped;
 }
 
 - (void)resetDefaultValues
