@@ -35,6 +35,7 @@ static NSString *var = @"x";
     CGFloat deltaX = ((xSubOne - xNot) / rectangles);
 
 	NSLog(@"Delta: %f",deltaX);
+	
 
     CGFloat total = 0.0;
     
