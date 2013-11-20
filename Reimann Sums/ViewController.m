@@ -63,7 +63,7 @@
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSString *text = [formatter stringFromNumber:[NSNumber numberWithDouble:total]];
+    NSString *text = [formatter stringFromNumber:@(total)];
     
     [self.outputLabel setText:text];
 

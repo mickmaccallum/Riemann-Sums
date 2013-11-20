@@ -15,9 +15,6 @@ static NSString *var = @"x";
 @implementation CalculatorObject
 
 
-
-
-
 + (CalculatorObject *)sharedInstance
 {
     static dispatch_once_t onceToken;
@@ -36,8 +33,10 @@ static NSString *var = @"x";
                        inDirection:(ReimannSumDirection)direction
 {
     CGFloat deltaX = ((xSubOne - xNot) / rectangles);
-    
-    __block CGFloat total = 0.0;
+
+	NSLog(@"Delta: %f",deltaX);
+
+    CGFloat total = 0.0;
     
     switch (direction) {
         case ReimannSumDirectionNone: {
@@ -46,7 +45,7 @@ static NSString *var = @"x";
          
         case ReimannSumDirectionLeft: {
             
-            for (CGFloat k = xNot; k < xSubOne - deltaX; k += deltaX) {
+            for (CGFloat k = xNot; k <= xSubOne - deltaX; k += deltaX) {
 
 				@autoreleasepool {
 					NSDictionary *substitutions = @{var:@(k)};
@@ -77,9 +76,9 @@ static NSString *var = @"x";
             break;
     }
     
-    CGFloat final = total * deltaX;
-    
-    return final;
+	total *= deltaX;
+
+    return total;
 }
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function

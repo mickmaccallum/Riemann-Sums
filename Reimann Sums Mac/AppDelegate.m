@@ -20,10 +20,7 @@
 - (IBAction)startApproximations:(NSButton *)sender
 {
     CalculatorObject *calculator = [CalculatorObject sharedInstance];
-    
-    NSString *function = [calculator functionPreparedForMathParserFromString:self.functionField.stringValue];
-    NSLog(@"%@",function);
-    
+
     ReimannSumDirection direction = ReimannSumDirectionNone;
     
     if (self.directionSegment.selectedSegment == 0) {
@@ -31,11 +28,48 @@
     }else if (self.directionSegment.selectedSegment == 1) {
         direction = ReimannSumDirectionRight;
     }
-    
+
+	CGFloat start = [[self.startingField cell] placeholderString].doubleValue;
+	CGFloat finish = [[self.endingField cell] placeholderString].doubleValue;
+	CGFloat number = [[self.numberOfRectanglesField cell] placeholderString].doubleValue;
+
+	if (self.startingField.stringValue.length != 0) {
+		start = self.startingField.doubleValue;
+	}
+
+	if (self.endingField.stringValue.length != 0) {
+		finish = self.endingField.doubleValue;
+	}
+
+	if (self.numberOfRectanglesField.stringValue.length != 0) {
+		number = self.numberOfRectanglesField.doubleValue;
+
+		if (fabs(number) < DBL_EPSILON) {
+
+			NSAlert *alert = [NSAlert alertWithMessageText:@"Error"
+											 defaultButton:@"Dismiss"
+										   alternateButton:nil
+											   otherButton:nil
+								 informativeTextWithFormat:@"Division by zero error. Please use a non-zero value in the number of rectangles field. Delta X is calculated as ((end - start) / numOfRect)"];
+			[alert runModal];
+
+			return;
+		}
+	}
+
+	NSString *fOfX = [[self.functionField cell] placeholderString];
+
+	if (self.functionField.stringValue.length != 0) {
+		fOfX = self.functionField.stringValue;
+	}
+
+	NSString *function = [calculator functionPreparedForMathParserFromString:fOfX];
+
+
     CGFloat final = [calculator areaUnderCurveOfFunction:function
-                                             startingAtX:self.startingField.doubleValue
-                                            andEndingAtX:self.endingField.doubleValue
-                                  withNumberOfRectangles:self.numberOfRectanglesField.doubleValue
+                                             startingAtX:start
+                                            andEndingAtX:finish
+                                  withNumberOfRectangles:number
                                              inDirection:direction];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
