@@ -47,11 +47,14 @@ static NSString *var = @"x";
         case ReimannSumDirectionLeft: {
             
             for (CGFloat k = xNot; k < xSubOne - deltaX; k += deltaX) {
-                
-                NSDictionary *substitutions = @{var:@(k)};
-                NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-                
-                total += fOfX.doubleValue;
+
+				@autoreleasepool {
+					NSDictionary *substitutions = @{var:@(k)};
+					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+
+					total += fOfX.doubleValue;
+				}
+
             }
 
         }break;
@@ -59,15 +62,17 @@ static NSString *var = @"x";
         case ReimannSumDirectionRight: {
             
             for (CGFloat k = xNot + deltaX; k <= xSubOne; k += deltaX) {
-                
-                NSDictionary *substitutions = @{var:@(k)};
-                NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-                
-                total += fOfX.doubleValue;
+
+                @autoreleasepool {
+					NSDictionary *substitutions = @{var:@(k)};
+					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+
+					total += fOfX.doubleValue;
+				}
             }
 
         }break;
-            
+
         default:
             break;
     }
