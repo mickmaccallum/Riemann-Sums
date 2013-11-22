@@ -38,7 +38,7 @@ static NSString *var = @"x";
     
     switch (direction) {
         case ReimannSumDirectionNone: {
-            
+            return sum;
         }break;
          
         case ReimannSumDirectionLeft: {
@@ -52,7 +52,7 @@ static NSString *var = @"x";
                     NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
                     
                     sum += evalAtX.doubleValue;
-                    NSLog(@"%f",sum * deltaX);
+                    
                 }
                 
             }
@@ -62,11 +62,17 @@ static NSString *var = @"x";
         case ReimannSumDirectionRight: {
             
             for (CGFloat i = 1; i <= rectangles; i ++) {
-                CGFloat x = a + (i * deltaX);
                 
-                NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
-                
-                sum += evalAtX.doubleValue;
+                @autoreleasepool {
+            
+                    CGFloat x = a + (i * deltaX);
+                    
+                    NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
+                    
+                    sum += evalAtX.doubleValue;
+                    
+                }
+
             }
 
         }break;
