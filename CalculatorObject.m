@@ -52,13 +52,11 @@ static NSString *var = @"x";
                     NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
                     
                     sum += evalAtX.doubleValue;
+                    NSLog(@"%f",sum * deltaX);
                 }
                 
             }
             
-            sum *= deltaX;
-            
-
         }break;
          
         case ReimannSumDirectionRight: {
