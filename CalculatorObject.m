@@ -27,17 +27,14 @@ static NSString *var = @"x";
 
 
 - (CGFloat)areaUnderCurveOfFunction:(NSString *)function
-                       startingAtX:(CGFloat)xNot
-                      andEndingAtX:(CGFloat)xSubOne
+                       startingAtX:(CGFloat)a
+                      andEndingAtX:(CGFloat)b
             withNumberOfRectangles:(CGFloat)rectangles
                        inDirection:(ReimannSumDirection)direction
 {
-    CGFloat deltaX = ((xSubOne - xNot) / rectangles);
-
-	NSLog(@"Delta: %f",deltaX);
+    CGFloat deltaX = ((b - a) / rectangles);
 	
-
-    CGFloat total = 0.0;
+    CGFloat sum = 0.0;
     
     switch (direction) {
         case ReimannSumDirectionNone: {
@@ -46,29 +43,32 @@ static NSString *var = @"x";
          
         case ReimannSumDirectionLeft: {
             
-            for (CGFloat k = xNot; k <= xSubOne - deltaX; k += deltaX) {
-
-				@autoreleasepool {
-					NSDictionary *substitutions = @{var:@(k)};
-					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-
-					total += fOfX.doubleValue;
-				}
-
+            for (CGFloat i = 0; i < rectangles; i ++) {
+                
+                @autoreleasepool {
+                
+                    CGFloat x = a + (i * deltaX);
+                    
+                    NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
+                    
+                    sum += evalAtX.doubleValue;
+                }
+                
             }
+            
+            sum *= deltaX;
+            
 
         }break;
          
         case ReimannSumDirectionRight: {
             
-            for (CGFloat k = xNot + deltaX; k <= xSubOne; k += deltaX) {
-
-                @autoreleasepool {
-					NSDictionary *substitutions = @{var:@(k)};
-					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-
-					total += fOfX.doubleValue;
-				}
+            for (CGFloat i = 1; i <= rectangles; i ++) {
+                CGFloat x = a + (i * deltaX);
+                
+                NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
+                
+                sum += evalAtX.doubleValue;
             }
 
         }break;
@@ -77,9 +77,9 @@ static NSString *var = @"x";
             break;
     }
     
-	total *= deltaX;
+	sum *= deltaX;
 
-    return total;
+    return sum;
 }
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function
@@ -89,6 +89,38 @@ static NSString *var = @"x";
 
     return varsSwapped;
 }
+
+
+    // Old way
+
+    // Left
+
+    //            CGFloat end = 0.0;
+    //            for (double k = a; k <= b - deltaX; k += deltaX) {
+    //
+    //				@autoreleasepool {
+    //
+    //					NSDictionary *substitutions = @{var:@(k)};
+    //					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+    //
+    //					total += fOfX.doubleValue;
+    //                    end =  k;
+    //				}
+    //                NSLog(@"end=%F", end);
+
+    // Right
+
+    //            for (double k = a + deltaX; k <= b; k += deltaX) {
+    //
+    //                @autoreleasepool {
+    //
+    //					NSDictionary *substitutions = @{var:@(k)};
+    //					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
+    //
+    //					total += fOfX.doubleValue;
+    //				}
+    //            }
+
 
 
 @end
