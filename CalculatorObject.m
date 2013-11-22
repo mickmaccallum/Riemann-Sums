@@ -12,6 +12,12 @@ __strong static CalculatorObject *sharedInstance = nil;
 
 static NSString *var = @"x";
 
+@interface CalculatorObject ()
+
+@property (strong) dispatch_queue_t queue;
+
+@end
+
 @implementation CalculatorObject
 
 
@@ -20,6 +26,9 @@ static NSString *var = @"x";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[CalculatorObject alloc] init];
+        
+        sharedInstance.queue = dispatch_queue_create("com.Summation.MainLoopQueue", DISPATCH_QUEUE_SERIAL);
+
     });
     
     return sharedInstance;
@@ -34,55 +43,42 @@ static NSString *var = @"x";
 {
     CGFloat deltaX = ((b - a) / rectangles);
 	
-    CGFloat sum = 0.0;
-    
-    switch (direction) {
-        case ReimannSumDirectionNone: {
-            return sum;
-        }break;
-         
-        case ReimannSumDirectionLeft: {
-            
-            for (CGFloat i = 0; i < rectangles; i ++) {
-                
-                @autoreleasepool {
-                
-                    CGFloat x = a + (i * deltaX);
-                    
-                    NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
-                    
-                    sum += evalAtX.doubleValue;
-                    
-                }
-                
-            }
-            
-        }break;
-         
-        case ReimannSumDirectionRight: {
-            
-            for (CGFloat i = 1; i <= rectangles; i ++) {
-                
-                @autoreleasepool {
-            
-                    CGFloat x = a + (i * deltaX);
-                    
-                    NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
-                    
-                    sum += evalAtX.doubleValue;
-                    
-                }
+    __block CGFloat sum = 0.0;
 
-            }
+    CGFloat iterator = 0.0;
+    CGFloat limit = 0.0;
 
-        }break;
+    if (direction == ReimannSumDirectionLeft) {
 
-        default:
-            break;
+        limit = rectangles;
+  
+    }else if (direction == ReimannSumDirectionRight) {
+        
+        iterator = 1.0;
+        limit = rectangles + 1.0;
+        
+    }else{
+        
+        return sum;
+        
     }
     
-	sum *= deltaX;
+    for (CGFloat i = iterator; i < limit; i ++) {
+     
+        @autoreleasepool {
+            
+            CGFloat x = a + (i * deltaX);
+            
+            NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
+            
+            sum += evalAtX.doubleValue;
+            
+        }
 
+    }
+    
+    sum *= deltaX;
+    
     return sum;
 }
 
@@ -93,38 +89,5 @@ static NSString *var = @"x";
 
     return varsSwapped;
 }
-
-
-    // Old way
-
-    // Left
-
-    //            CGFloat end = 0.0;
-    //            for (double k = a; k <= b - deltaX; k += deltaX) {
-    //
-    //				@autoreleasepool {
-    //
-    //					NSDictionary *substitutions = @{var:@(k)};
-    //					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-    //
-    //					total += fOfX.doubleValue;
-    //                    end =  k;
-    //				}
-    //                NSLog(@"end=%F", end);
-
-    // Right
-
-    //            for (double k = a + deltaX; k <= b; k += deltaX) {
-    //
-    //                @autoreleasepool {
-    //
-    //					NSDictionary *substitutions = @{var:@(k)};
-    //					NSNumber *fOfX = [function numberByEvaluatingStringWithSubstitutions:substitutions];
-    //
-    //					total += fOfX.doubleValue;
-    //				}
-    //            }
-
-
 
 @end
