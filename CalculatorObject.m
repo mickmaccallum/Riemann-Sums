@@ -38,10 +38,10 @@ static NSString *var = @"x";
 - (CGFloat)areaUnderCurveOfFunction:(NSString *)function
                        startingAtX:(CGFloat)a
                       andEndingAtX:(CGFloat)b
-            withNumberOfRectangles:(CGFloat)rectangles
+            withNumberOfRectangles:(NSInteger)rectangles
                        inDirection:(ReimannSumType)direction
 {
-    CGFloat deltaX = ((b - a) / rectangles);
+    CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
     	
     __block CGFloat sum = 0.0;
 
@@ -78,7 +78,7 @@ static NSString *var = @"x";
             break;
     }
     
-    for (NSInteger i = iterator; i < limit; i ++) {
+    for (NSInteger i = iterator ; i < limit ; i ++) {
      
         @autoreleasepool {
             
@@ -93,25 +93,6 @@ static NSString *var = @"x";
     }
     
     sum *= deltaX;
-    
-    return sum;
-}
-
-- (CGFloat)middleSum:(CGFloat)delta start:(CGFloat)a end:(CGFloat)b func:(NSString *)function limit:(CGFloat)limit
-{
-
-    CGFloat sum = 0.0;
-    
-    for (int i = 0 ; i < limit ; i ++) {
-        
-        CGFloat x = a + ((CGFloat)i * delta) + (delta / 2.0);
-
-        NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
-        
-        sum += evalAtX.doubleValue;
-    }
-    
-    sum *= delta;
     
     return sum;
 }

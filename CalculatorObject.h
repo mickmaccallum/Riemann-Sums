@@ -19,10 +19,12 @@ enum ReimannSumType {
 
 typedef enum ReimannSumType ReimannSumType;
 
+//typedef void(^ReimannSumCompletionBlock)(<#arguments#>);
+
 
 @interface CalculatorObject : NSObject
 
-- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne withNumberOfRectangles:(CGFloat)rectangles inDirection:(ReimannSumType)direction;
+- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne withNumberOfRectangles:(NSInteger)rectangles inDirection:(ReimannSumType)direction;
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 

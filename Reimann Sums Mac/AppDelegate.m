@@ -44,19 +44,7 @@
 	}
 
 	if (self.numberOfRectanglesField.stringValue.length != 0) {
-		number = self.numberOfRectanglesField.doubleValue;
-
-		if (fabs(number) < DBL_EPSILON) {
-
-			NSAlert *alert = [NSAlert alertWithMessageText:@"Error"
-											 defaultButton:@"Dismiss"
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:@"Division by zero error. Please use a non-zero value in the number of rectangles field. Delta X is calculated as ((end - start) / numOfRect)"];
-			[alert runModal];
-
-			return;
-		}
+		number = self.numberOfRectanglesField.integerValue;
 	}
 
 	NSString *fOfX = [[self.functionField cell] placeholderString];
