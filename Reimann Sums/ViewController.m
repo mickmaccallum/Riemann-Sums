@@ -43,12 +43,12 @@
 
 //    [self checkValidityOfFields];
     
-    ReimannSumDirection direction = ReimannSumDirectionNone;
+    ReimannSumType direction = ReimannSumTypeNone;
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-        direction = ReimannSumDirectionLeft;
+        direction = ReimannSumTypeLeft;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-        direction = ReimannSumDirectionRight;
+        direction = ReimannSumTypeRight;
     }
 
     CalculatorObject *calculator = [CalculatorObject sharedInstance];

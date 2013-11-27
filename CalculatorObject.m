@@ -39,35 +39,50 @@ static NSString *var = @"x";
                        startingAtX:(CGFloat)a
                       andEndingAtX:(CGFloat)b
             withNumberOfRectangles:(CGFloat)rectangles
-                       inDirection:(ReimannSumDirection)direction
+                       inDirection:(ReimannSumType)direction
 {
     CGFloat deltaX = ((b - a) / rectangles);
-	
+    	
     __block CGFloat sum = 0.0;
 
     CGFloat iterator = 0.0;
     CGFloat limit = 0.0;
-
-    if (direction == ReimannSumDirectionLeft) {
-
-        limit = rectangles;
-  
-    }else if (direction == ReimannSumDirectionRight) {
-        
-        iterator = 1.0;
-        limit = rectangles + 1.0;
-        
-    }else{
-        
-        return sum;
-        
+    CGFloat additive = 0.0;
+    
+    switch (direction) {
+        case ReimannSumTypeNone:
+            
+            return sum;
+            
+            break;
+        case ReimannSumTypeLeft:
+            
+            limit = rectangles;
+            
+            break;
+        case ReimannSumTypeRight:
+            
+            iterator = 1.0;
+            limit = rectangles + 1.0;
+            
+            break;
+        case ReimannSumTypeMiddle:
+            
+            limit = rectangles;
+            additive = (deltaX / 2.0);
+            break;
+        case ReimannSumTypeTrapezoid:
+            
+            break;
+        default :
+            break;
     }
     
-    for (CGFloat i = iterator; i < limit; i ++) {
+    for (NSInteger i = iterator; i < limit; i ++) {
      
         @autoreleasepool {
             
-            CGFloat x = a + (i * deltaX);
+            CGFloat x = a + ((CGFloat)i * deltaX) + additive;
             
             NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
             
@@ -78,6 +93,25 @@ static NSString *var = @"x";
     }
     
     sum *= deltaX;
+    
+    return sum;
+}
+
+- (CGFloat)middleSum:(CGFloat)delta start:(CGFloat)a end:(CGFloat)b func:(NSString *)function limit:(CGFloat)limit
+{
+
+    CGFloat sum = 0.0;
+    
+    for (int i = 0 ; i < limit ; i ++) {
+        
+        CGFloat x = a + ((CGFloat)i * delta) + (delta / 2.0);
+
+        NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
+        
+        sum += evalAtX.doubleValue;
+    }
+    
+    sum *= delta;
     
     return sum;
 }

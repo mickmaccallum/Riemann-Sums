@@ -21,12 +21,14 @@
 {
     CalculatorObject *calculator = [CalculatorObject sharedInstance];
 
-    ReimannSumDirection direction = ReimannSumDirectionNone;
+    ReimannSumType direction = ReimannSumTypeNone;
     
     if (self.directionSegment.selectedSegment == 0) {
-        direction = ReimannSumDirectionLeft;
+        direction = ReimannSumTypeLeft;
     }else if (self.directionSegment.selectedSegment == 1) {
-        direction = ReimannSumDirectionRight;
+        direction = ReimannSumTypeMiddle;
+    }else if (self.directionSegment.selectedSegment == 2) {
+        direction = ReimannSumTypeRight;
     }
 
 	CGFloat start = [[self.startingField cell] placeholderString].doubleValue;
@@ -73,7 +75,7 @@
                                              inDirection:direction];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setNumberStyle:NSNumberFormatterScientificStyle];
     NSString *text = [formatter stringFromNumber:@(final)];
 
     

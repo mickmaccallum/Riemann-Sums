@@ -9,18 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "DDMathParser.h"
 
-enum ReimannSumDirection {
-    ReimannSumDirectionNone = 0,
-    ReimannSumDirectionLeft = 2,
-    ReimannSumDirectionRight = 4
+enum ReimannSumType {
+    ReimannSumTypeNone = 0,
+    ReimannSumTypeLeft = 2,
+    ReimannSumTypeRight = 4,
+    ReimannSumTypeMiddle = 8,
+    ReimannSumTypeTrapezoid = 16
 };
 
-typedef enum ReimannSumDirection ReimannSumDirection;
+typedef enum ReimannSumType ReimannSumType;
 
 
 @interface CalculatorObject : NSObject
 
-- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne withNumberOfRectangles:(CGFloat)rectangles inDirection:(ReimannSumDirection)direction;
+- (CGFloat)areaUnderCurveOfFunction:(NSString *)function startingAtX:(CGFloat)xNot andEndingAtX:(CGFloat)xSubOne withNumberOfRectangles:(CGFloat)rectangles inDirection:(ReimannSumType)direction;
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 
