@@ -33,6 +33,6 @@ typedef void(^CalculationCompleteBlock)(CGFloat sum, NSError *error);
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 
 
-+ (CalculatorObject *)sharedInstance;
+//+ (CalculatorObject *)sharedInstance;
 
 @end

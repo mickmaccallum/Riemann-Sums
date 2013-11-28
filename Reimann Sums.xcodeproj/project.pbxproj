@@ -96,6 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		004F865F18477C4900A1CC19 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		009FE9881832A18700225788 /* Reimann Sums.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reimann Sums.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		009FE98B1832A18700225788 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		009FE98D1832A18700225788 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -383,6 +384,7 @@
 		00F71CE6183B940600CD2B69 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				004F865F18477C4900A1CC19 /* README.md */,
 				00F71CE7183B940600CD2B69 /* Reimann Sums Mac-Info.plist */,
 				00F71CE8183B940600CD2B69 /* InfoPlist.strings */,
 				00F71CEB183B940600CD2B69 /* main.m */,

@@ -10,33 +10,16 @@
 
 static NSString *var = @"x";
 
-@interface CalculatorObject ()
-
-//@property (strong , nonatomic) dispatch_queue_t calculationQueue;
-
-@end
 
 @implementation CalculatorObject
 
-
-+ (CalculatorObject *)sharedInstance
-{
-    __strong static CalculatorObject *sharedInstance = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    
-    return sharedInstance;
-}
 
 - (instancetype)init
 {
     self = [super init];
 
     if (self) {
-//        self.calculationQueue = dispatch_queue_create("com.CalculatorObject.CalculationQueue", DISPATCH_QUEUE_SERIAL);
+        //
     }
     
     return self;
@@ -95,9 +78,7 @@ static NSString *var = @"x";
         }break;
     }
     
-    dispatch_queue_t calculationQueue = dispatch_queue_create("com.CalculatorObject.CalculationQueue", DISPATCH_QUEUE_SERIAL);
-    
-    dispatch_async(calculationQueue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
         
         NSError *calculationError = nil;
         
@@ -105,7 +86,7 @@ static NSString *var = @"x";
             
             @autoreleasepool {
                 
-                CGFloat x = a + ((CGFloat)i * deltaX) + additive;
+                CGFloat x = a + ((CGFloat)i * deltaX) + ((direction == ReimannSumTypeMiddle) ? additive : 0);
                 
                 NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)} error:&calculationError];
                 

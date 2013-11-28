@@ -14,7 +14,7 @@
 
 - (IBAction)startApproximations:(NSButton *)sender
 {
-    CalculatorObject *calculator = [CalculatorObject sharedInstance];
+    CalculatorObject *calculator = [[CalculatorObject alloc] init];
 
     ReimannSumType direction = ReimannSumTypeNone;
     
