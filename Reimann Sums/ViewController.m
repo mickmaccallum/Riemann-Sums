@@ -40,33 +40,71 @@
 - (IBAction)startApproximation:(UIButton *)sender
 {
     [self.view endEditing:YES];
-
-//    [self checkValidityOfFields];
+    
+    CGFloat startingNumber = self.startingNumberField.placeholder.doubleValue;
+    CGFloat endingNumber = self.endingNumberField.placeholder.doubleValue;
+    CGFloat number = self.numberOfRectanglesField.placeholder.integerValue;
+    
+    if (self.startingNumberField.text.length > 0) {
+        if ([self inputIsValid:self.startingNumberField.text]) {
+            startingNumber = [self.startingNumberField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"From\""];
+        }
+    }
+    
+    
+    if (self.endingNumberField.text.length > 0) {
+        if ([self inputIsValid:self.endingNumberField.text]) {
+            endingNumber = [self.endingNumberField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"To\""];
+        }
+    }
+    
+    if (self.numberOfRectanglesField.text.length > 0) {
+        if ([self inputIsValid:self.numberOfRectanglesField.text]) {
+            number = [self.numberOfRectanglesField.text doubleValue];
+        }else{
+            [self validationFailedForField:@"\"Rectangles\""];
+        }
+    }
     
     ReimannSumType direction = ReimannSumTypeNone;
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
         direction = ReimannSumTypeLeft;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
+        direction = ReimannSumTypeMiddle;
+    }else if (self.sumSelectionSegment.selectedSegmentIndex == 2) {
         direction = ReimannSumTypeRight;
+    }else if (self.sumSelectionSegment.selectedSegmentIndex == 3) {
+        direction = ReimannSumTypeTrapezoid;
+    }else{
+        [self validationFailedForField:@"Direction Segment"];
+        return;
     }
+    
 
-    CalculatorObject *calculator = [CalculatorObject sharedInstance];
+    CalculatorObject *calculator = [[CalculatorObject alloc] init];
     
-    NSString *function = [calculator functionPreparedForMathParserFromString:self.functionInputField.text];
+    NSString *function = [calculator functionPreparedForMathParserFromString:((self.functionInputField.text.length > 0) ? self.functionInputField.text : self.functionInputField.placeholder)];
     
-    CGFloat total = [[CalculatorObject sharedInstance] areaUnderCurveOfFunction:function
-                                                                    startingAtX:self.startingNumberField.text.doubleValue
-                                                                   andEndingAtX:self.endingNumberField.text.doubleValue
-                                                         withNumberOfRectangles:self.numberOfRectanglesField.text.doubleValue
-                                                                    inDirection:direction];
-    
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSString *text = [formatter stringFromNumber:@(total)];
-    
-    [self.outputLabel setText:text];
+    [calculator areaUnderCurveOfFunction:function
+                             startingAtX:startingNumber
+                            andEndingAtX:endingNumber
+                       withNumberOfRectangles:number
+                             inDirection:direction
+                          withCompletion:^(CGFloat sum, NSError *error) {
+                              
+                              if (!error) {
+                                  NSString *labelText = [calculator outputTextFromSum:sum];
+                                  [self.outputLabel setText:labelText];
+                              }else{
+                                  [self.outputLabel setText:error.domain];
+                              }
 
+                          }];
 }
 
 - (BOOL)inputIsValid:(NSString *)input
@@ -74,33 +112,6 @@
     NSNumberFormatter *formatter = [NSNumberFormatter new];
 
     return [formatter numberFromString:input] != nil;
-}
-
-- (void)checkValidityOfFields
-{
-    if (self.startingNumberField.text.length > 0) {
-        if ([self inputIsValid:self.startingNumberField.text]) {
-            self.startingNumber = [self.startingNumberField.text doubleValue];
-        }else{
-            [self validationFailedForField:@"\"From\""];
-        }
-    }
-
-    if (self.endingNumberField.text.length > 0) {
-        if ([self inputIsValid:self.endingNumberField.text]) {
-            self.endingNumber = [self.endingNumberField.text doubleValue];
-        }else{
-            [self validationFailedForField:@"\"To\""];
-        }
-    }
-
-    if (self.numberOfRectanglesField.text.length > 0) {
-        if ([self inputIsValid:self.numberOfRectanglesField.text]) {
-            self.number = [self.numberOfRectanglesField.text doubleValue];
-        }else{
-            [self validationFailedForField:@"\"Rectangles\""];
-        }
-    }
 }
 
 - (void)validationFailedForField:(NSString *)fieldName
@@ -119,11 +130,6 @@
     return YES;
 }
 
-
-- (IBAction)sumSegmentDidChangeValue:(UISegmentedControl *)sender
-{
-
-}
 
 - (void)didReceiveMemoryWarning
 {

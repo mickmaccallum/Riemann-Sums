@@ -10,8 +10,4 @@
 
 @interface ViewController : UIViewController < UITextFieldDelegate >
 
-@property (assign , nonatomic) CGFloat startingNumber;
-@property (assign , nonatomic) CGFloat endingNumber;
-@property (assign , nonatomic) CGFloat number;
-
 @end

@@ -33,6 +33,9 @@ static NSString *var = @"x";
                        inDirection:(ReimannSumType)direction
                      withCompletion:(CalculationCompleteBlock)completionBlock
 {
+    
+    NSLog(@"Function: %@        A: %f   B: %f   Rectangles: %ld",function,a,b,rectangles);
+    
     CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
     	
     __block CGFloat sum = 0.0;
@@ -114,6 +117,22 @@ static NSString *var = @"x";
     NSString *varsSwapped = [powersFixed stringByReplacingOccurrencesOfString:var withString:@"($x)"];
 
     return varsSwapped;
+}
+
+
+- (NSString *)outputTextFromSum:(CGFloat)sum
+{
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    
+    if (sum < 100000000000.0) {
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    }else{
+        [formatter setNumberStyle:NSNumberFormatterScientificStyle];
+    }
+    
+    NSString *text = [formatter stringFromNumber:@(sum)];
+
+    return text;
 }
 
 @end

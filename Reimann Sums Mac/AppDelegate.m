@@ -12,6 +12,7 @@
 @implementation AppDelegate
 
 
+
 - (IBAction)startApproximations:(NSButton *)sender
 {
     CalculatorObject *calculator = [[CalculatorObject alloc] init];
@@ -52,34 +53,19 @@
 
 
     [calculator areaUnderCurveOfFunction:function
-                                             startingAtX:start
-                                            andEndingAtX:finish
-                                  withNumberOfRectangles:number
-                                             inDirection:direction
-                                          withCompletion:^(CGFloat sum, NSError *error) {
-                                              if (!error) {
-                                                  [self applyNumberToResultsField:sum];
-                                              }else{
-                                                  [self.resultsField setStringValue:error.domain];
-                                              }
-                                          }];
-}
-
-- (void)applyNumberToResultsField:(CGFloat)sum
-{
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    
-    if (sum < 100000000000.0) {
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    }else{
-        [formatter setNumberStyle:NSNumberFormatterScientificStyle];
-    }
-    
-    NSString *text = [formatter stringFromNumber:@(sum)];
-    
-    
-    [self.resultsField setStringValue:text];
-
+                             startingAtX:start
+                            andEndingAtX:finish
+                  withNumberOfRectangles:number
+                             inDirection:direction
+                          withCompletion:^(CGFloat sum, NSError *error) {
+                              
+                              if (!error) {
+                                  NSString *labelText = [calculator outputTextFromSum:sum];
+                                  [self.resultsField setStringValue:labelText];
+                              }else{
+                                  [self.resultsField setStringValue:error.domain];
+                              }
+                          }];
 }
 
 
