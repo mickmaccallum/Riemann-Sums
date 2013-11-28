@@ -8,13 +8,11 @@
 
 #import "CalculatorObject.h"
 
-__strong static CalculatorObject *sharedInstance = nil;
-
 static NSString *var = @"x";
 
 @interface CalculatorObject ()
 
-@property (strong) dispatch_queue_t queue;
+//@property (strong , nonatomic) dispatch_queue_t calculationQueue;
 
 @end
 
@@ -23,23 +21,34 @@ static NSString *var = @"x";
 
 + (CalculatorObject *)sharedInstance
 {
+    __strong static CalculatorObject *sharedInstance = nil;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[CalculatorObject alloc] init];
-        
-        sharedInstance.queue = dispatch_queue_create("com.Summation.MainLoopQueue", DISPATCH_QUEUE_SERIAL);
-
+        sharedInstance = [[self alloc] init];
     });
     
     return sharedInstance;
 }
 
+- (instancetype)init
+{
+    self = [super init];
 
-- (CGFloat)areaUnderCurveOfFunction:(NSString *)function
+    if (self) {
+//        self.calculationQueue = dispatch_queue_create("com.CalculatorObject.CalculationQueue", DISPATCH_QUEUE_SERIAL);
+    }
+    
+    return self;
+}
+
+
+- (void)areaUnderCurveOfFunction:(NSString *)function
                        startingAtX:(CGFloat)a
                       andEndingAtX:(CGFloat)b
             withNumberOfRectangles:(NSInteger)rectangles
                        inDirection:(ReimannSumType)direction
+                     withCompletion:(CalculationCompleteBlock)completionBlock
 {
     CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
     	
@@ -50,51 +59,72 @@ static NSString *var = @"x";
     CGFloat additive = 0.0;
     
     switch (direction) {
-        case ReimannSumTypeNone:
+        case ReimannSumTypeNone:{
             
-            return sum;
+            NSError *error = [NSError errorWithDomain:@"CalculatorObject - code 1, no summation type specified." code:1 userInfo:nil];
+            completionBlock(sum,error);
             
-            break;
-        case ReimannSumTypeLeft:
+        }break;
+        
+        case ReimannSumTypeLeft:{
             
             limit = rectangles;
             
-            break;
-        case ReimannSumTypeRight:
+        }break;
+            
+        case ReimannSumTypeRight:{
             
             iterator = 1.0;
             limit = rectangles + 1.0;
             
-            break;
-        case ReimannSumTypeMiddle:
+        }break;
+            
+        case ReimannSumTypeMiddle:{
             
             limit = rectangles;
             additive = (deltaX / 2.0);
-            break;
-        case ReimannSumTypeTrapezoid:
             
-            break;
-        default :
-            break;
+        }break;
+            
+        case ReimannSumTypeTrapezoid: {
+            
+        }break;
+            
+        default:{
+            
+        }break;
     }
     
-    for (NSInteger i = iterator ; i < limit ; i ++) {
-     
-        @autoreleasepool {
+    dispatch_queue_t calculationQueue = dispatch_queue_create("com.CalculatorObject.CalculationQueue", DISPATCH_QUEUE_SERIAL);
+    
+    dispatch_async(calculationQueue, ^{
+        
+        NSError *calculationError = nil;
+        
+        for (NSInteger i = iterator ; i < limit ; i ++) {
             
-            CGFloat x = a + ((CGFloat)i * deltaX) + additive;
-            
-            NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)}];
-            
-            sum += evalAtX.doubleValue;
-            
+            @autoreleasepool {
+                
+                CGFloat x = a + ((CGFloat)i * deltaX) + additive;
+                
+                NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)} error:&calculationError];
+                
+                if (calculationError) {
+                    completionBlock(sum,calculationError);
+                    return;
+                }
+                sum += evalAtX.doubleValue;
+            }
         }
+        
+        sum *= deltaX;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
 
-    }
-    
-    sum *= deltaX;
-    
-    return sum;
+            completionBlock(sum,nil);
+            
+        });
+    });
 }
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function

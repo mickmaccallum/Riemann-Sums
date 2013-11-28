@@ -11,11 +11,6 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-
-}
-
 
 - (IBAction)startApproximations:(NSButton *)sender
 {
@@ -56,20 +51,35 @@
 	NSString *function = [calculator functionPreparedForMathParserFromString:fOfX];
 
 
-    CGFloat final = [calculator areaUnderCurveOfFunction:function
+    [calculator areaUnderCurveOfFunction:function
                                              startingAtX:start
                                             andEndingAtX:finish
                                   withNumberOfRectangles:number
-                                             inDirection:direction];
-    
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterScientificStyle];
-    NSString *text = [formatter stringFromNumber:@(final)];
+                                             inDirection:direction
+                                          withCompletion:^(CGFloat sum, NSError *error) {
+                                              if (!error) {
+                                                  [self applyNumberToResultsField:sum];
+                                              }else{
+                                                  [self.resultsField setStringValue:error.domain];
+                                              }
+                                          }];
+}
 
+- (void)applyNumberToResultsField:(CGFloat)sum
+{
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    
+    if (sum < 100000000000.0) {
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    }else{
+        [formatter setNumberStyle:NSNumberFormatterScientificStyle];
+    }
+    
+    NSString *text = [formatter stringFromNumber:@(sum)];
+    
     
     [self.resultsField setStringValue:text];
-    
-    
+
 }
 
 

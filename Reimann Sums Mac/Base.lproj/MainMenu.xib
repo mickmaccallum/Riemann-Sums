@@ -751,7 +751,7 @@
                         </segmentedCell>
                     </segmentedControl>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PFk-l7-zew">
-                        <rect key="frame" x="121" y="141" width="142" height="25"/>
+                        <rect key="frame" x="121" y="153" width="142" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="Start Approximation" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sar-1C-gMr">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -762,7 +762,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gxH-Ly-7iw">
-                        <rect key="frame" x="271" y="141" width="88" height="25"/>
+                        <rect key="frame" x="271" y="153" width="88" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="Reset Fields" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dv3-G7-xHg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -773,7 +773,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rhy-ZQ-T9u">
-                        <rect key="frame" x="79" y="20" width="383" height="22"/>
+                        <rect key="frame" x="18" y="52" width="444" height="41"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="NHM-tu-2zK">
                             <font key="font" metaFont="system" size="18"/>
@@ -782,7 +782,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4v3-Iy-1Td">
-                        <rect key="frame" x="18" y="20" width="48" height="22"/>
+                        <rect key="frame" x="216" y="101" width="48" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Result:" id="ukC-VO-Rlj">
                             <font key="font" metaFont="system"/>
