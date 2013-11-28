@@ -33,6 +33,7 @@ static NSString *var = @"x";
                        inDirection:(ReimannSumType)direction
                      withCompletion:(CalculationCompleteBlock)completionBlock
 {
+    
     CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
     	
     __block CGFloat sum = 0.0;
