@@ -25,6 +25,8 @@
         direction = ReimannSumTypeMiddle;
     }else if (self.directionSegment.selectedSegment == 2) {
         direction = ReimannSumTypeRight;
+    }else if (self.directionSegment.selectedSegment == 3) {
+        direction = ReimannSumTypeTrapezoid;
     }
 
 	CGFloat start = [[self.startingField cell] placeholderString].doubleValue;

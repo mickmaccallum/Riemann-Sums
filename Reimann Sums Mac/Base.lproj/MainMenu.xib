@@ -739,14 +739,15 @@
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QR-eH-2hq">
-                        <rect key="frame" x="240" y="220" width="215" height="25"/>
+                        <rect key="frame" x="212" y="193" width="248" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <segmentedCell key="cell" alignment="left" style="texturedSquare" trackingMode="selectOne" id="byY-ej-DyB">
                             <font key="font" metaFont="system"/>
                             <segments>
-                                <segment label="Left" width="71"/>
-                                <segment label="Middle" width="70" selected="YES" tag="1"/>
-                                <segment label="Right" width="70"/>
+                                <segment label="Left"/>
+                                <segment label="Middle" selected="YES" tag="1"/>
+                                <segment label="Right"/>
+                                <segment label="Trapezoid"/>
                             </segments>
                         </segmentedCell>
                     </segmentedControl>

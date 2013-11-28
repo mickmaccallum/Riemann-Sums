@@ -14,18 +14,6 @@ static NSString *var = @"x";
 @implementation CalculatorObject
 
 
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self) {
-        //
-    }
-    
-    return self;
-}
-
-
 - (void)areaUnderCurveOfFunction:(NSString *)function
                        startingAtX:(CGFloat)a
                       andEndingAtX:(CGFloat)b
@@ -33,14 +21,17 @@ static NSString *var = @"x";
                        inDirection:(ReimannSumType)direction
                      withCompletion:(CalculationCompleteBlock)completionBlock
 {
+    NSLog(@"Function: %@        A: %f   B: %f   Rectangles: %ld",function,a,b,rectangles);
     
     CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
+    CGFloat deltaMultiple = deltaX;
     	
     __block CGFloat sum = 0.0;
 
     CGFloat iterator = 0.0;
     CGFloat limit = 0.0;
     CGFloat additive = 0.0;
+    CGFloat multiple = 1.0;
     
     switch (direction) {
         case ReimannSumTypeNone:{
@@ -72,6 +63,21 @@ static NSString *var = @"x";
             
         case ReimannSumTypeTrapezoid: {
             
+            limit = rectangles;
+            iterator = a;
+            
+            deltaMultiple *= (1.0 / 2.0);
+            multiple = 2.0;
+            
+            NSNumber *fOfA = [function numberByEvaluatingStringWithSubstitutions:@{var: @(a)}];
+            NSNumber *fOfB = [function numberByEvaluatingStringWithSubstitutions:@{var: @(b)}];
+            
+            NSLog(@"FofA: %f",fOfA.doubleValue);
+            NSLog(@"FofB: %f",fOfB.doubleValue);
+            
+            sum += fOfA.doubleValue;
+            sum += fOfB.doubleValue;
+            
         }break;
             
         default:{
@@ -83,11 +89,17 @@ static NSString *var = @"x";
         
         NSError *calculationError = nil;
         
-        for (NSInteger i = iterator ; i < limit ; i ++) {
+        for (NSInteger i = 0 ; i < (NSInteger)limit ; i ++) {
             
             @autoreleasepool {
                 
-                CGFloat x = a + ((CGFloat)i * deltaX) + ((direction == ReimannSumTypeMiddle) ? additive : 0);
+                CGFloat x = a + ((CGFloat)i * deltaX);
+                
+                if (direction == ReimannSumTypeMiddle) {
+                    x += additive;
+                }
+                
+                NSLog(@"X: %f",x);
                 
                 NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)} error:&calculationError];
                 
@@ -95,11 +107,12 @@ static NSString *var = @"x";
                     completionBlock(sum,calculationError);
                     return;
                 }
-                sum += evalAtX.doubleValue;
+                
+                sum += (evalAtX.doubleValue * multiple);
             }
         }
         
-        sum *= deltaX;
+        sum *= deltaMultiple;
         
         dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -108,6 +121,7 @@ static NSString *var = @"x";
         });
     });
 }
+
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function
 {
