@@ -28,7 +28,7 @@ static NSString *var = @"x";
     	
     __block CGFloat sum = 0.0;
 
-    CGFloat iterator = 0.0;
+    NSInteger iterator = 0;
     CGFloat limit = 0.0;
     CGFloat additive = 0.0;
     CGFloat multiple = 1.0;
@@ -49,7 +49,7 @@ static NSString *var = @"x";
             
         case ReimannSumTypeRight:{
             
-            iterator = 1.0;
+            iterator = 1;
             limit = rectangles + 1.0;
             
         }break;
@@ -64,16 +64,13 @@ static NSString *var = @"x";
         case ReimannSumTypeTrapezoid: {
             
             limit = rectangles;
-            iterator = a;
+            iterator = 1;
             
             deltaMultiple *= (1.0 / 2.0);
             multiple = 2.0;
             
             NSNumber *fOfA = [function numberByEvaluatingStringWithSubstitutions:@{var: @(a)}];
             NSNumber *fOfB = [function numberByEvaluatingStringWithSubstitutions:@{var: @(b)}];
-            
-            NSLog(@"FofA: %f",fOfA.doubleValue);
-            NSLog(@"FofB: %f",fOfB.doubleValue);
             
             sum += fOfA.doubleValue;
             sum += fOfB.doubleValue;
@@ -89,7 +86,7 @@ static NSString *var = @"x";
         
         NSError *calculationError = nil;
         
-        for (NSInteger i = 0 ; i < (NSInteger)limit ; i ++) {
+        for (NSInteger i = iterator ; i < (NSInteger)limit ; i ++) {
             
             @autoreleasepool {
                 
@@ -98,8 +95,6 @@ static NSString *var = @"x";
                 if (direction == ReimannSumTypeMiddle) {
                     x += additive;
                 }
-                
-                NSLog(@"X: %f",x);
                 
                 NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)} error:&calculationError];
                 
