@@ -70,16 +70,18 @@
         }
     }
     
-    ReimannSumType direction = ReimannSumTypeNone;
+    SumType direction = SumTypeNone;
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-        direction = ReimannSumTypeLeft;
+        direction = SumTypeReimannLeft;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-        direction = ReimannSumTypeMiddle;
+        direction = SumTypeReimannMiddle;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 2) {
-        direction = ReimannSumTypeRight;
+        direction = SumTypeReimannRight;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 3) {
-        direction = ReimannSumTypeTrapezoid;
+        direction = SumTypeReimannTrapezoidal;
+    }else if (self.sumSelectionSegment.selectedSegmentIndex == 4) {
+        direction = SumTypeSimpsonsRule;
     }else{
         [self validationFailedForField:@"Direction Segment"];
         return;
