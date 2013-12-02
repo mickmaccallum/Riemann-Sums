@@ -17,16 +17,18 @@
 {
     CalculatorObject *calculator = [[CalculatorObject alloc] init];
 
-    ReimannSumType direction = ReimannSumTypeNone;
+    SumType direction = SumTypeNone;
     
     if (self.directionSegment.selectedSegment == 0) {
-        direction = ReimannSumTypeLeft;
+        direction = SumTypeReimannLeft;
     }else if (self.directionSegment.selectedSegment == 1) {
-        direction = ReimannSumTypeMiddle;
+        direction = SumTypeReimannMiddle;
     }else if (self.directionSegment.selectedSegment == 2) {
-        direction = ReimannSumTypeRight;
+        direction = SumTypeReimannRight;
     }else if (self.directionSegment.selectedSegment == 3) {
-        direction = ReimannSumTypeTrapezoid;
+        direction = SumTypeReimannTrapezoidal;
+    }else if (self.directionSegment.selectedSegment == 4) {
+        direction = SumTypeSimpsonsRule;
     }
 
 	CGFloat start = [[self.startingField cell] placeholderString].doubleValue;

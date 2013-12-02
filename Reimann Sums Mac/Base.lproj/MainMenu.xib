@@ -739,7 +739,7 @@
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QR-eH-2hq">
-                        <rect key="frame" x="212" y="193" width="248" height="25"/>
+                        <rect key="frame" x="63" y="183" width="363" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <segmentedCell key="cell" alignment="left" style="texturedSquare" trackingMode="selectOne" id="byY-ej-DyB">
                             <font key="font" metaFont="system"/>
@@ -748,6 +748,7 @@
                                 <segment label="Middle" selected="YES" tag="1"/>
                                 <segment label="Right"/>
                                 <segment label="Trapezoid"/>
+                                <segment label="Simpson's Rule"/>
                             </segments>
                         </segmentedCell>
                     </segmentedControl>

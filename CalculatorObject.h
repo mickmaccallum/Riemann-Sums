@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "DDMathParser.h"
 
-enum ReimannSumType {
-    ReimannSumTypeNone = 0,
-    ReimannSumTypeLeft = 2,
-    ReimannSumTypeRight = 4,
-    ReimannSumTypeMiddle = 8,
-    ReimannSumTypeTrapezoid = 16
+enum SumType {
+    SumTypeNone,
+    SumTypeReimannLeft,
+    SumTypeReimannRight,
+    SumTypeReimannMiddle,
+    SumTypeReimannTrapezoidal,
+    SumTypeSimpsonsRule
 };
 
-typedef enum ReimannSumType ReimannSumType;
+typedef enum SumType SumType;
 
 typedef void(^CalculationCompleteBlock)(CGFloat sum, NSError *error);
 
@@ -26,8 +27,8 @@ typedef void(^CalculationCompleteBlock)(CGFloat sum, NSError *error);
 - (void)areaUnderCurveOfFunction:(NSString *)function
                         startingAtX:(CGFloat)a
                        andEndingAtX:(CGFloat)b
-             withNumberOfRectangles:(NSInteger)rectangles
-                        inDirection:(ReimannSumType)direction
+             withNumberOfRectangles:(NSInteger)n
+                        inDirection:(SumType)direction
                      withCompletion:(CalculationCompleteBlock)completionBlock;
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;

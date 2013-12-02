@@ -17,13 +17,12 @@ static NSString *var = @"x";
 - (void)areaUnderCurveOfFunction:(NSString *)function
                        startingAtX:(CGFloat)a
                       andEndingAtX:(CGFloat)b
-            withNumberOfRectangles:(NSInteger)rectangles
-                       inDirection:(ReimannSumType)direction
+            withNumberOfRectangles:(NSInteger)n
+                       inDirection:(SumType)direction
                      withCompletion:(CalculationCompleteBlock)completionBlock
 {
-    NSLog(@"Function: %@        A: %f   B: %f   Rectangles: %ld",function,a,b,rectangles);
     
-    CGFloat deltaX = ((b - a) / (CGFloat)rectangles);
+    CGFloat deltaX = ((b - a) / (CGFloat)n);
     CGFloat deltaMultiple = deltaX;
     	
     __block CGFloat sum = 0.0;
@@ -34,36 +33,36 @@ static NSString *var = @"x";
     CGFloat multiple = 1.0;
     
     switch (direction) {
-        case ReimannSumTypeNone:{
+        case SumTypeNone:{
             
             NSError *error = [NSError errorWithDomain:@"CalculatorObject - code 1, no summation type specified." code:1 userInfo:nil];
             completionBlock(sum,error);
             
         }break;
         
-        case ReimannSumTypeLeft:{
+        case SumTypeReimannLeft:{
             
-            limit = rectangles;
+            limit = n;
             
         }break;
             
-        case ReimannSumTypeRight:{
+        case SumTypeReimannRight:{
             
             iterator = 1;
-            limit = rectangles + 1.0;
+            limit = n + 1.0;
             
         }break;
             
-        case ReimannSumTypeMiddle:{
+        case SumTypeReimannMiddle:{
             
-            limit = rectangles;
+            limit = n;
             additive = (deltaX / 2.0);
             
         }break;
             
-        case ReimannSumTypeTrapezoid: {
+        case SumTypeReimannTrapezoidal: {
             
-            limit = rectangles;
+            limit = n;
             iterator = 1;
             
             deltaMultiple *= (1.0 / 2.0);
@@ -75,6 +74,14 @@ static NSString *var = @"x";
             sum += fOfA.doubleValue;
             sum += fOfB.doubleValue;
             
+        }break;
+        
+        case SumTypeSimpsonsRule:{
+            
+            [self areaUnderCurveUsingSimpsonsRule:function startingAt:a andEndingAt:b withNumberOfRectangles:n withCompletion:^(CGFloat sum, NSError *error) {
+                completionBlock(sum,error);
+            }];
+            return;
         }break;
             
         default:{
@@ -92,7 +99,7 @@ static NSString *var = @"x";
                 
                 CGFloat x = a + ((CGFloat)i * deltaX);
                 
-                if (direction == ReimannSumTypeMiddle) {
+                if (direction == SumTypeReimannMiddle) {
                     x += additive;
                 }
                 
@@ -114,6 +121,46 @@ static NSString *var = @"x";
             completionBlock(sum,nil);
             
         });
+    });
+}
+
+- (void)areaUnderCurveUsingSimpsonsRule:(NSString *)function
+                             startingAt:(CGFloat)a
+                            andEndingAt:(CGFloat)b
+                 withNumberOfRectangles:(NSInteger)n
+                         withCompletion:(CalculationCompleteBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
+        
+        NSError *error = nil;
+        
+        CGFloat firstTerm = (b - a) / 6.0;
+        
+        NSNumber *fOfA = [function numberByEvaluatingStringWithSubstitutions:@{var: @(a)} error:&error];
+        NSNumber *fOfB = [function numberByEvaluatingStringWithSubstitutions:@{var: @(b)} error:&error];
+        NSNumber *aAndBOverTwo = [function numberByEvaluatingStringWithSubstitutions:@{var: @((a + b) / 2.0)} error:&error];
+        
+        
+        CGFloat secondTerm = fOfA.doubleValue + (4.0 * aAndBOverTwo.doubleValue)+ fOfB.doubleValue;
+        
+        if (!error) {
+            
+            CGFloat sum = firstTerm * secondTerm;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+        
+                completionBlock(sum,nil);
+
+            });
+
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                completionBlock(0.0,error);
+                
+            });
+        }
+        
     });
 }
 
