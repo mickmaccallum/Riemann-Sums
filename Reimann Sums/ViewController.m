@@ -91,22 +91,22 @@
     CalculatorObject *calculator = [[CalculatorObject alloc] init];
     
     NSString *function = [calculator functionPreparedForMathParserFromString:((self.functionInputField.text.length > 0) ? self.functionInputField.text : self.functionInputField.placeholder)];
-    
+
     [calculator areaUnderCurveOfFunction:function
                              startingAtX:startingNumber
                             andEndingAtX:endingNumber
-                       withNumberOfRectangles:number
+                  withNumberOfRectangles:number
                              inDirection:direction
-                          withCompletion:^(CGFloat sum, NSError *error) {
-                              
-                              if (!error) {
-                                  NSString *labelText = [calculator outputTextFromSum:sum];
-                                  [self.outputLabel setText:labelText];
-                              }else{
-                                  [self.outputLabel setText:error.domain];
-                              }
-
-                          }];
+                       withProgressBlock:^(CGFloat progress) {
+                           
+                       } andCompletionBlock:^(CGFloat sum, NSError *error) {
+                           if (!error) {
+                               NSString *labelText = [calculator outputTextFromSum:sum];
+                               [self.outputLabel setText:labelText];
+                           }else{
+                               [self.outputLabel setText:error.domain];
+                           }                           
+                       }];
 }
 
 - (BOOL)inputIsValid:(NSString *)input

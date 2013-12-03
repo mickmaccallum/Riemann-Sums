@@ -31,20 +31,20 @@
         direction = SumTypeSimpsonsRule;
     }
 
-	CGFloat start = [[self.startingField cell] placeholderString].doubleValue;
-	CGFloat finish = [[self.endingField cell] placeholderString].doubleValue;
+	NSString *start = [[self.startingField cell] placeholderString];
+	NSString *finish = [[self.endingField cell] placeholderString];
 	CGFloat number = [[self.numberOfRectanglesField cell] placeholderString].doubleValue;
 
 	if (self.startingField.stringValue.length != 0) {
-		start = self.startingField.doubleValue;
+		start = self.startingField.stringValue;
 	}
 
 	if (self.endingField.stringValue.length != 0) {
-		finish = self.endingField.doubleValue;
+		finish = self.endingField.stringValue;
 	}
 
 	if (self.numberOfRectanglesField.stringValue.length != 0) {
-		number = self.numberOfRectanglesField.integerValue;
+		number = self.numberOfRectanglesField.doubleValue;
 	}
 
 	NSString *fOfX = [[self.functionField cell] placeholderString];
@@ -61,15 +61,17 @@
                             andEndingAtX:finish
                   withNumberOfRectangles:number
                              inDirection:direction
-                          withCompletion:^(CGFloat sum, NSError *error) {
-                              
-                              if (!error) {
-                                  NSString *labelText = [calculator outputTextFromSum:sum];
-                                  [self.resultsField setStringValue:labelText];
-                              }else{
-                                  [self.resultsField setStringValue:error.domain];
-                              }
-                          }];
+                       withProgressBlock:^(CGFloat progress) {
+                           
+                       } andCompletionBlock:^(CGFloat sum, NSError *error) {
+                           if (!error) {
+                               NSString *labelText = [calculator outputTextFromSum:sum];
+                               [self.resultsField setStringValue:labelText];
+                           }else{
+                               [self.resultsField setStringValue:error.domain];
+                           }                           
+                       }];
+
 }
 
 

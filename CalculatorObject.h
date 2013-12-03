@@ -21,15 +21,18 @@ enum SumType {
 typedef enum SumType SumType;
 
 typedef void(^CalculationCompleteBlock)(CGFloat sum, NSError *error);
+typedef void(^CalculationProgressBlock)(CGFloat progress);
 
 @interface CalculatorObject : NSObject
 
 - (void)areaUnderCurveOfFunction:(NSString *)function
-                        startingAtX:(CGFloat)a
-                       andEndingAtX:(CGFloat)b
-             withNumberOfRectangles:(NSInteger)n
-                        inDirection:(SumType)direction
-                     withCompletion:(CalculationCompleteBlock)completionBlock;
+                     startingAtX:(NSString *)a
+                    andEndingAtX:(NSString *)b
+          withNumberOfRectangles:(NSInteger)n
+                     inDirection:(SumType)direction
+               withProgressBlock:(CalculationProgressBlock)progressBlock
+              andCompletionBlock:(CalculationCompleteBlock)completionBlock;
+
 
 - (NSString *)functionPreparedForMathParserFromString:(NSString *)function;
 - (NSString *)outputTextFromSum:(CGFloat)sum;

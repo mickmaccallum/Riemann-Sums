@@ -45,13 +45,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iyb-aL-wdi">
-                                <rect key="frame" x="20" y="98" width="339" height="29"/>
+                                <rect key="frame" x="20" y="98" width="397" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Left"/>
                                     <segment title="Middle"/>
                                     <segment title="Right"/>
-                                    <segment title="Trap"/>
+                                    <segment title="Trapezoidal"/>
                                     <segment title="Simpson"/>
                                 </segments>
                             </segmentedControl>

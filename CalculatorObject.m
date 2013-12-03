@@ -15,20 +15,26 @@ static NSString *var = @"x";
 
 
 - (void)areaUnderCurveOfFunction:(NSString *)function
-                       startingAtX:(CGFloat)a
-                      andEndingAtX:(CGFloat)b
-            withNumberOfRectangles:(NSInteger)n
-                       inDirection:(SumType)direction
-                     withCompletion:(CalculationCompleteBlock)completionBlock
+                     startingAtX:(NSString *)starting
+                    andEndingAtX:(NSString *)ending
+          withNumberOfRectangles:(NSInteger)n
+                     inDirection:(SumType)direction
+               withProgressBlock:(CalculationProgressBlock)progressBlock
+              andCompletionBlock:(CalculationCompleteBlock)completionBlock
 {
+
+    CGFloat a = [starting numberByEvaluatingString].doubleValue;
+    CGFloat b = [ending numberByEvaluatingString].doubleValue;
     
-    CGFloat deltaX = ((b - a) / (CGFloat)n);
-    CGFloat deltaMultiple = deltaX;
+    
+    
+    CGFloat h = ((b - a) / (CGFloat)n);
+    CGFloat deltaMultiple = h;
     	
     __block CGFloat sum = 0.0;
 
     NSInteger iterator = 0;
-    CGFloat limit = 0.0;
+    CGFloat limit = n;
     CGFloat additive = 0.0;
     CGFloat multiple = 1.0;
     
@@ -42,27 +48,24 @@ static NSString *var = @"x";
         
         case SumTypeReimannLeft:{
             
-            limit = n;
             
         }break;
             
         case SumTypeReimannRight:{
             
             iterator = 1;
-            limit = n + 1.0;
+            limit ++;
             
         }break;
             
         case SumTypeReimannMiddle:{
             
-            limit = n;
-            additive = (deltaX / 2.0);
+            additive = (h / 2.0);
             
         }break;
             
         case SumTypeReimannTrapezoidal: {
             
-            limit = n;
             iterator = 1;
             
             deltaMultiple *= (1.0 / 2.0);
@@ -78,9 +81,12 @@ static NSString *var = @"x";
         
         case SumTypeSimpsonsRule:{
             
-            [self areaUnderCurveUsingSimpsonsRule:function startingAt:a andEndingAt:b withNumberOfRectangles:n withCompletion:^(CGFloat sum, NSError *error) {
+            [self areaUnderCurveUsingSimpsonsRule:function startingAt:a andEndingAt:b withNumberOfRectangles:n withProgressBlock:^(CGFloat progress) {
+                progressBlock(progress);
+            } andCompletionBlock:^(CGFloat sum, NSError *error) {
                 completionBlock(sum,error);
             }];
+            
             return;
         }break;
             
@@ -97,7 +103,7 @@ static NSString *var = @"x";
             
             @autoreleasepool {
                 
-                CGFloat x = a + ((CGFloat)i * deltaX);
+                CGFloat x = a + ((CGFloat)i * h);
                 
                 if (direction == SumTypeReimannMiddle) {
                     x += additive;
@@ -128,40 +134,27 @@ static NSString *var = @"x";
                              startingAt:(CGFloat)a
                             andEndingAt:(CGFloat)b
                  withNumberOfRectangles:(NSInteger)n
-                         withCompletion:(CalculationCompleteBlock)completionBlock
+                      withProgressBlock:(CalculationProgressBlock)progressBlock
+                     andCompletionBlock:(CalculationCompleteBlock)completionBlock;
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
-        
-        NSError *error = nil;
-        
-        CGFloat firstTerm = (b - a) / 6.0;
-        
-        NSNumber *fOfA = [function numberByEvaluatingStringWithSubstitutions:@{var: @(a)} error:&error];
-        NSNumber *fOfB = [function numberByEvaluatingStringWithSubstitutions:@{var: @(b)} error:&error];
-        NSNumber *aAndBOverTwo = [function numberByEvaluatingStringWithSubstitutions:@{var: @((a + b) / 2.0)} error:&error];
-        
-        
-        CGFloat secondTerm = fOfA.doubleValue + (4.0 * aAndBOverTwo.doubleValue)+ fOfB.doubleValue;
-        
-        if (!error) {
-            
-            CGFloat sum = firstTerm * secondTerm;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-        
-                completionBlock(sum,nil);
+    CGFloat sum = 0.0;
+    CGFloat term1 = (b - a) / 6.0;
+    
 
-            });
+    CGFloat fOfA = [[function numberByEvaluatingStringWithSubstitutions:@{var: @(a)}] doubleValue];
+    CGFloat fOfB = [[function numberByEvaluatingStringWithSubstitutions:@{var: @(b)}] doubleValue];
 
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                completionBlock(0.0,error);
-                
-            });
-        }
-        
-    });
+    CGFloat func = [[function numberByEvaluatingStringWithSubstitutions:@{var: @((a + b) / 2.0)}] doubleValue];
+    
+    
+    sum += fOfA;
+    sum += fOfB;
+    
+    sum *= (func * 4.0);
+    sum *= term1;
+    
+    completionBlock(sum,nil);
+
 }
 
 
