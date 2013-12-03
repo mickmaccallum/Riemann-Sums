@@ -95,28 +95,39 @@ static NSString *var = @"x";
         }break;
     }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
+    
+    __block NSError *parseError = nil;
+    
+    DDParser *parser = [DDParser parserWithString:function error:&parseError];
+    DDExpression *e = [parser parsedExpressionWithError:&parseError];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, kNilOptions) ,^{
         
         NSError *calculationError = nil;
-        
+
         for (NSInteger i = iterator ; i < (NSInteger)limit ; i ++) {
-            
+
             @autoreleasepool {
-                
+            
                 CGFloat x = a + ((CGFloat)i * h);
                 
                 if (direction == SumTypeReimannMiddle) {
                     x += additive;
                 }
                 
-                NSNumber *evalAtX = [function numberByEvaluatingStringWithSubstitutions:@{var: @(x)} error:&calculationError];
+                NSNumber *evalAtX = [e evaluateWithSubstitutions:@{var: @(x)} evaluator:nil error:&parseError];
                 
                 if (calculationError) {
-                    completionBlock(sum,calculationError);
-                    return;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock(sum,calculationError);
+                        return;                        
+                    });
                 }
                 
                 sum += (evalAtX.doubleValue * multiple);
+                dispatch_async(dispatch_get_main_queue(), ^{
+//                    progressBlock();
+                });
             }
         }
         

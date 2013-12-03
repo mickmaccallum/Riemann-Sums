@@ -41,13 +41,13 @@
 {
     [self.view endEditing:YES];
     
-    CGFloat startingNumber = self.startingNumberField.placeholder.doubleValue;
-    CGFloat endingNumber = self.endingNumberField.placeholder.doubleValue;
+    NSString *startingNumber = self.startingNumberField.placeholder;
+    NSString *endingNumber = self.endingNumberField.placeholder;
     CGFloat number = self.numberOfRectanglesField.placeholder.integerValue;
     
     if (self.startingNumberField.text.length > 0) {
         if ([self inputIsValid:self.startingNumberField.text]) {
-            startingNumber = [self.startingNumberField.text doubleValue];
+            startingNumber = self.startingNumberField.text;
         }else{
             [self validationFailedForField:@"\"From\""];
         }
@@ -56,7 +56,7 @@
     
     if (self.endingNumberField.text.length > 0) {
         if ([self inputIsValid:self.endingNumberField.text]) {
-            endingNumber = [self.endingNumberField.text doubleValue];
+            endingNumber = self.endingNumberField.text;
         }else{
             [self validationFailedForField:@"\"To\""];
         }
