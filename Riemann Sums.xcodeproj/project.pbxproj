@@ -230,10 +230,10 @@
 				00F71D10183B946300CD2B69 /* CalculatorObject.h */,
 				00F71D11183B946300CD2B69 /* CalculatorObject.m */,
 				009FE9C01832A5D600225788 /* DDMathParser */,
-				009FE9911832A18700225788 /* Reimann Sums */,
-				009FE9B01832A18700225788 /* Reimann SumsTests */,
-				00F71CE5183B940600CD2B69 /* Reimann Sums Mac */,
-				00F71D02183B940600CD2B69 /* Reimann Sums MacTests */,
+				009FE9911832A18700225788 /* Riemann Sums */,
+				009FE9B01832A18700225788 /* Riemann SumsTests */,
+				00F71CE5183B940600CD2B69 /* Riemann Sums Mac */,
+				00F71D02183B940600CD2B69 /* Riemann Sums MacTests */,
 				009FE98A1832A18700225788 /* Frameworks */,
 				009FE9891832A18700225788 /* Products */,
 			);
@@ -263,7 +263,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		009FE9911832A18700225788 /* Reimann Sums */ = {
+		009FE9911832A18700225788 /* Riemann Sums */ = {
 			isa = PBXGroup;
 			children = (
 				009FE99A1832A18700225788 /* AppDelegate.h */,
@@ -274,6 +274,7 @@
 				009FE9A31832A18700225788 /* Images.xcassets */,
 				009FE9921832A18700225788 /* Supporting Files */,
 			);
+			name = "Riemann Sums";
 			path = "Reimann Sums";
 			sourceTree = "<group>";
 		};
@@ -288,12 +289,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		009FE9B01832A18700225788 /* Reimann SumsTests */ = {
+		009FE9B01832A18700225788 /* Riemann SumsTests */ = {
 			isa = PBXGroup;
 			children = (
 				009FE9B61832A18700225788 /* Reimann_SumsTests.m */,
 				009FE9B11832A18700225788 /* Supporting Files */,
 			);
+			name = "Riemann SumsTests";
 			path = "Reimann SumsTests";
 			sourceTree = "<group>";
 		};
@@ -369,7 +371,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		00F71CE5183B940600CD2B69 /* Reimann Sums Mac */ = {
+		00F71CE5183B940600CD2B69 /* Riemann Sums Mac */ = {
 			isa = PBXGroup;
 			children = (
 				00F71CF1183B940600CD2B69 /* AppDelegate.h */,
@@ -378,6 +380,7 @@
 				00F71CF7183B940600CD2B69 /* Images.xcassets */,
 				00F71CE6183B940600CD2B69 /* Supporting Files */,
 			);
+			name = "Riemann Sums Mac";
 			path = "Reimann Sums Mac";
 			sourceTree = "<group>";
 		};
@@ -394,12 +397,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		00F71D02183B940600CD2B69 /* Reimann Sums MacTests */ = {
+		00F71D02183B940600CD2B69 /* Riemann Sums MacTests */ = {
 			isa = PBXGroup;
 			children = (
 				00F71D08183B940600CD2B69 /* Reimann_Sums_MacTests.m */,
 				00F71D03183B940600CD2B69 /* Supporting Files */,
 			);
+			name = "Riemann Sums MacTests";
 			path = "Reimann Sums MacTests";
 			sourceTree = "<group>";
 		};
