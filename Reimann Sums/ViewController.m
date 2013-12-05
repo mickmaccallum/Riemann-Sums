@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  Reimann Sums
+//  Riemann Sums
 //
 //  Created by Mick on 11/12/13.
 //  Copyright (c) 2013 HappTech Development. All rights reserved.
@@ -73,13 +73,13 @@
     SumType direction = SumTypeNone;
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
-        direction = SumTypeReimannLeft;
+        direction = SumTypeRiemannLeft;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
-        direction = SumTypeReimannMiddle;
+        direction = SumTypeRiemannMiddle;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 2) {
-        direction = SumTypeReimannRight;
+        direction = SumTypeRiemannRight;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 3) {
-        direction = SumTypeReimannTrapezoidal;
+        direction = SumTypeRiemannTrapezoidal;
     }else if (self.sumSelectionSegment.selectedSegmentIndex == 4) {
         direction = SumTypeSimpsonsRule;
     }else{
