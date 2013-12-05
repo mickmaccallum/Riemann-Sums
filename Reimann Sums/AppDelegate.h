@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  Reimann Sums
+//  Riemann Sums
 //
 //  Created by Mick on 11/12/13.
 //  Copyright (c) 2013 HappTech Development. All rights reserved.

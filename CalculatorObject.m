@@ -1,6 +1,6 @@
 //
 //  CalculatorObject.m
-//  Reimann Sums
+//  Riemann Sums
 //
 //  Created by Mick on 11/19/13.
 //  Copyright (c) 2013 HappTech Development. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "CalculatorObject.h"
 
-static NSString *var = @"x";
+static NSString * const var = @"x";
 
 
 @implementation CalculatorObject
@@ -17,155 +17,235 @@ static NSString *var = @"x";
 - (void)areaUnderCurveOfFunction:(NSString *)function
                      startingAtX:(NSString *)starting
                     andEndingAtX:(NSString *)ending
-          withNumberOfRectangles:(NSInteger)n
+          withNumberOfRectangles:(unsigned int)n
                      inDirection:(SumType)direction
-               withProgressBlock:(CalculationProgressBlock)progressBlock
               andCompletionBlock:(CalculationCompleteBlock)completionBlock
 {
-
-    CGFloat a = [starting numberByEvaluatingString].doubleValue;
-    CGFloat b = [ending numberByEvaluatingString].doubleValue;
-    
-    
-    
-    CGFloat h = ((b - a) / (CGFloat)n);
-    CGFloat deltaMultiple = h;
-    	
-    __block CGFloat sum = 0.0;
-
-    NSInteger iterator = 0;
-    CGFloat limit = n;
-    CGFloat additive = 0.0;
-    CGFloat multiple = 1.0;
     
     switch (direction) {
-        case SumTypeNone:{
+        case SumTypeRiemannLeft:{
             
-            NSError *error = [NSError errorWithDomain:@"CalculatorObject - code 1, no summation type specified." code:1 userInfo:nil];
-            completionBlock(sum,error);
-            
-        }break;
-        
-        case SumTypeReimannLeft:{
-            
-            
-        }break;
-            
-        case SumTypeReimannRight:{
-            
-            iterator = 1;
-            limit ++;
-            
-        }break;
-            
-        case SumTypeReimannMiddle:{
-            
-            additive = (h / 2.0);
-            
-        }break;
-            
-        case SumTypeReimannTrapezoidal: {
-            
-            iterator = 1;
-            
-            deltaMultiple *= (1.0 / 2.0);
-            multiple = 2.0;
-            
-            NSNumber *fOfA = [function numberByEvaluatingStringWithSubstitutions:@{var: @(a)}];
-            NSNumber *fOfB = [function numberByEvaluatingStringWithSubstitutions:@{var: @(b)}];
-            
-            sum += fOfA.doubleValue;
-            sum += fOfB.doubleValue;
-            
-        }break;
-        
-        case SumTypeSimpsonsRule:{
-            
-            [self areaUnderCurveUsingSimpsonsRule:function startingAt:a andEndingAt:b withNumberOfRectangles:n withProgressBlock:^(CGFloat progress) {
-                progressBlock(progress);
-            } andCompletionBlock:^(CGFloat sum, NSError *error) {
+            [self leftSampledAreaFromFunction:function startingAt:starting endingAt:ending withRectangleCount:n andCompletionBlock:^(double sum, NSError *error) {
                 completionBlock(sum,error);
             }];
             
-            return;
+        }break;
+            
+        case SumTypeRiemannRight:{
+            
+            [self rightSampledAreaFromFunction:function startingAt:starting endingAt:ending withRectangleCount:n andCompletionBlock:^(double sum, NSError *error) {
+                completionBlock(sum,error);
+            }];
+            
+        }break;
+            
+        case SumTypeRiemannMiddle:{
+            [self midPointSampledAreaFromFunction:function startingAt:starting endingAt:ending withRectangleCount:n andCompletionBlock:^(double sum, NSError *error) {
+                completionBlock(sum,error);
+            }];
+            
+        }break;
+            
+        case SumTypeRiemannTrapezoidal: {
+            
+            [self trapezoidallySampledAreaFromFunction:function startingAt:starting endingAt:ending withRectangleCount:n andCompletionBlock:^(double sum, NSError *error) {
+                completionBlock(sum,error);
+            }];
+           
         }break;
             
         default:{
             
         }break;
     }
-    
-    
-    __block NSError *parseError = nil;
-    
-    DDParser *parser = [DDParser parserWithString:function error:&parseError];
-    DDExpression *e = [parser parsedExpressionWithError:&parseError];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, kNilOptions) ,^{
+
+}
+
+
+- (void)leftSampledAreaFromFunction:(NSString *)function
+                         startingAt:(NSString *)startingString
+                           endingAt:(NSString *)endingString
+                 withRectangleCount:(unsigned int)n
+                 andCompletionBlock:(CalculationCompleteBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
         
-        NSError *calculationError = nil;
+        double a = [[startingString numberByEvaluatingString] doubleValue];
+        double b = [[endingString numberByEvaluatingString] doubleValue];
 
-        for (NSInteger i = iterator ; i < (NSInteger)limit ; i ++) {
+        double sum = 0.0;
+        double h = (b - a) / n;
+        
+        NSError *parseError = nil;
+        
+        DDParser *parser = [DDParser parserWithString:function error:&parseError];
+        DDExpression *expression = [parser parsedExpressionWithError:&parseError];
+        
+        double start = CFAbsoluteTimeGetCurrent();
 
+        for (unsigned int i = 0 ; i < n ; i ++) {
             @autoreleasepool {
-            
-                CGFloat x = a + ((CGFloat)i * h);
                 
-                if (direction == SumTypeReimannMiddle) {
-                    x += additive;
-                }
+                const double x = a + i * h;
                 
-                NSNumber *evalAtX = [e evaluateWithSubstitutions:@{var: @(x)} evaluator:nil error:&parseError];
+                NSDictionary * const substitutions = @{var: @(x)};
                 
-                if (calculationError) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(sum,calculationError);
-                        return;                        
-                    });
-                }
+                double y = [[expression evaluateWithSubstitutions:substitutions evaluator:nil error:&parseError] doubleValue];
                 
-                sum += (evalAtX.doubleValue * multiple);
-                dispatch_async(dispatch_get_main_queue(), ^{
-//                    progressBlock();
-                });
+                sum += y;
             }
         }
         
-        sum *= deltaMultiple;
+        sum *= h;
+        
+        NSLog(@"Time: %f",CFAbsoluteTimeGetCurrent() - start);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-
             completionBlock(sum,nil);
-            
         });
     });
 }
 
-- (void)areaUnderCurveUsingSimpsonsRule:(NSString *)function
-                             startingAt:(CGFloat)a
-                            andEndingAt:(CGFloat)b
-                 withNumberOfRectangles:(NSInteger)n
-                      withProgressBlock:(CalculationProgressBlock)progressBlock
-                     andCompletionBlock:(CalculationCompleteBlock)completionBlock;
+- (void)rightSampledAreaFromFunction:(NSString *)function
+                         startingAt:(NSString *)startingString
+                           endingAt:(NSString *)endingString
+                 withRectangleCount:(NSUInteger)n
+                 andCompletionBlock:(CalculationCompleteBlock)completionBlock
 {
-    CGFloat sum = 0.0;
-    CGFloat term1 = (b - a) / 6.0;
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
+        
+        double a = [[startingString numberByEvaluatingString] doubleValue];
+        double b = [[endingString numberByEvaluatingString] doubleValue];
+        
+        double sum = 0.0;
+        double h = (b - a) / n;
+        
+        NSError *parseError = nil;
+        
+        DDParser *parser = [DDParser parserWithString:function error:&parseError];
+        DDExpression *expression = [parser parsedExpressionWithError:&parseError];
+        
+        double start = CFAbsoluteTimeGetCurrent();
+        
+        for (unsigned int i = 1 ; i <= n ; i ++) {
+            @autoreleasepool {
+                
+                const double x = a + i * h;
+                
+                NSDictionary * const substitutions = @{var: @(x)};
+                
+                double y = [[expression evaluateWithSubstitutions:substitutions evaluator:nil error:&parseError] doubleValue];
+                
+                sum += y;
+            }
+        }
+        
+        sum *= h;
+        
+        NSLog(@"Time: %f",CFAbsoluteTimeGetCurrent() - start);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(sum,nil);
+        });
+    });
+}
 
-    CGFloat fOfA = [[function numberByEvaluatingStringWithSubstitutions:@{var: @(a)}] doubleValue];
-    CGFloat fOfB = [[function numberByEvaluatingStringWithSubstitutions:@{var: @(b)}] doubleValue];
+- (void)midPointSampledAreaFromFunction:(NSString *)function
+                         startingAt:(NSString *)startingString
+                           endingAt:(NSString *)endingString
+                 withRectangleCount:(NSUInteger)n
+                 andCompletionBlock:(CalculationCompleteBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
+        
+        double a = [[startingString numberByEvaluatingString] doubleValue];
+        double b = [[endingString numberByEvaluatingString] doubleValue];
+        
+        double sum = 0.0;
+        double h = (b - a) / n;
+        double m = h / 2.0;
 
-    CGFloat func = [[function numberByEvaluatingStringWithSubstitutions:@{var: @((a + b) / 2.0)}] doubleValue];
-    
-    
-    sum += fOfA;
-    sum += fOfB;
-    
-    sum *= (func * 4.0);
-    sum *= term1;
-    
-    completionBlock(sum,nil);
+        NSError *parseError = nil;
+        
+        DDParser *parser = [DDParser parserWithString:function error:&parseError];
+        DDExpression *expression = [parser parsedExpressionWithError:&parseError];
+        
+        double start = CFAbsoluteTimeGetCurrent();
+        
+        for (unsigned int i = 0 ; i < n ; i ++) {
+            @autoreleasepool {
+                
+                const double x = i * h + a + m;
+                
+                NSDictionary * const substitutions = @{var: @(x)};
+                
+                double y = [[expression evaluateWithSubstitutions:substitutions evaluator:nil error:&parseError] doubleValue];
+                
+                sum += y;
+            }
+        }
+        
+        sum *= h;
+        
+        NSLog(@"Time: %f",CFAbsoluteTimeGetCurrent() - start);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(sum,nil);
+        });
+    });
+}
 
+- (void)trapezoidallySampledAreaFromFunction:(NSString *)function
+                         startingAt:(NSString *)startingString
+                           endingAt:(NSString *)endingString
+                 withRectangleCount:(NSUInteger)n
+                 andCompletionBlock:(CalculationCompleteBlock)completionBlock
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, kNilOptions), ^{
+        
+        double a = [[startingString numberByEvaluatingString] doubleValue];
+        double b = [[endingString numberByEvaluatingString] doubleValue];
+        
+        double sum = 0.0;
+        double h = (b - a) / n;
+
+        static double m = 2.0;
+        static double dm = (1.0 / 2.0);
+
+        NSError *parseError = nil;
+        
+        DDParser *parser = [DDParser parserWithString:function error:&parseError];
+        DDExpression *expression = [parser parsedExpressionWithError:&parseError];
+        
+        double fOfA = [[expression evaluateWithSubstitutions:@{var: @(a)} evaluator:nil error:&parseError] doubleValue];
+        double fOfB = [[expression evaluateWithSubstitutions:@{var: @(b)} evaluator:nil error:&parseError] doubleValue];
+        
+        sum += fOfA;
+        sum += fOfB;
+        
+        double start = CFAbsoluteTimeGetCurrent();
+        
+        for (unsigned int i = 1 ; i < n ; i ++) {
+            @autoreleasepool {
+                
+                const double x = a + i * h;
+                
+                NSDictionary * const substitutions = @{var: @(x)};
+                
+                double y = [[expression evaluateWithSubstitutions:substitutions evaluator:nil error:&parseError] doubleValue];
+                
+                sum += (y * m);
+            }
+        }
+        
+        sum *= (h * dm);
+        
+        NSLog(@"Time: %f",CFAbsoluteTimeGetCurrent() - start);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionBlock(sum,nil);
+        });
+    });
 }
 
 

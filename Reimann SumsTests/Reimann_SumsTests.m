@@ -1,6 +1,6 @@
 //
-//  Reimann_SumsTests.m
-//  Reimann SumsTests
+//  Riemann_SumsTests.m
+//  Riemann SumsTests
 //
 //  Created by Mick on 11/12/13.
 //  Copyright (c) 2013 HappTech Development. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface Reimann_SumsTests : XCTestCase
+@interface Riemann_SumsTests : XCTestCase
 
 @end
 
-@implementation Reimann_SumsTests
+@implementation Riemann_SumsTests
 
 - (void)setUp
 {

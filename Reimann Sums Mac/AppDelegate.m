@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  Reimann Sums Mac
+//  Riemann Sums Mac
 //
 //  Created by Mick on 11/19/13.
 //  Copyright (c) 2013 HappTech Development. All rights reserved.
@@ -17,19 +17,8 @@
 {
     CalculatorObject *calculator = [[CalculatorObject alloc] init];
 
-    SumType direction = SumTypeNone;
+    SumType direction = self.directionSegment.selectedSegment;
     
-    if (self.directionSegment.selectedSegment == 0) {
-        direction = SumTypeReimannLeft;
-    }else if (self.directionSegment.selectedSegment == 1) {
-        direction = SumTypeReimannMiddle;
-    }else if (self.directionSegment.selectedSegment == 2) {
-        direction = SumTypeReimannRight;
-    }else if (self.directionSegment.selectedSegment == 3) {
-        direction = SumTypeReimannTrapezoidal;
-    }else if (self.directionSegment.selectedSegment == 4) {
-        direction = SumTypeSimpsonsRule;
-    }
 
 	NSString *start = [[self.startingField cell] placeholderString];
 	NSString *finish = [[self.endingField cell] placeholderString];
@@ -55,15 +44,12 @@
 
 	NSString *function = [calculator functionPreparedForMathParserFromString:fOfX];
 
-
     [calculator areaUnderCurveOfFunction:function
                              startingAtX:start
                             andEndingAtX:finish
                   withNumberOfRectangles:number
                              inDirection:direction
-                       withProgressBlock:^(CGFloat progress) {
-                           
-                       } andCompletionBlock:^(CGFloat sum, NSError *error) {
+                      andCompletionBlock:^(double sum, NSError *error) {
                            if (!error) {
                                NSString *labelText = [calculator outputTextFromSum:sum];
                                [self.resultsField setStringValue:labelText];
