@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "DDMathParser.h"
 
-enum SumType : NSInteger {
+typedef NS_ENUM(NSUInteger, SumType) {
+    SumTypeNone,
     SumTypeRiemannLeft,
     SumTypeRiemannMiddle,
     SumTypeRiemannRight,
     SumTypeRiemannTrapezoidal,
+    SumTypeSimpsonsRule,
 };
-
-typedef enum SumType SumType;
 
 typedef void(^CalculationCompleteBlock)(double sum, NSError *error);
 

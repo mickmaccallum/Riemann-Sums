@@ -74,16 +74,17 @@
     
     if (self.sumSelectionSegment.selectedSegmentIndex == 0) {
         direction = SumTypeRiemannLeft;
-    }else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
+    } else if (self.sumSelectionSegment.selectedSegmentIndex == 1) {
         direction = SumTypeRiemannMiddle;
-    }else if (self.sumSelectionSegment.selectedSegmentIndex == 2) {
+    } else if (self.sumSelectionSegment.selectedSegmentIndex == 2) {
         direction = SumTypeRiemannRight;
-    }else if (self.sumSelectionSegment.selectedSegmentIndex == 3) {
+    } else if (self.sumSelectionSegment.selectedSegmentIndex == 3) {
         direction = SumTypeRiemannTrapezoidal;
-    }else if (self.sumSelectionSegment.selectedSegmentIndex == 4) {
+    } else if (self.sumSelectionSegment.selectedSegmentIndex == 4) {
         direction = SumTypeSimpsonsRule;
-    }else{
+    } else {
         [self validationFailedForField:@"Direction Segment"];
+        
         return;
     }
     
@@ -97,16 +98,14 @@
                             andEndingAtX:endingNumber
                   withNumberOfRectangles:number
                              inDirection:direction
-                       withProgressBlock:^(CGFloat progress) {
-                           
-                       } andCompletionBlock:^(CGFloat sum, NSError *error) {
-                           if (!error) {
-                               NSString *labelText = [calculator outputTextFromSum:sum];
-                               [self.outputLabel setText:labelText];
-                           }else{
-                               [self.outputLabel setText:error.domain];
-                           }                           
-                       }];
+                      andCompletionBlock:^(double sum, NSError *error) {
+        if (!error) {
+            NSString *labelText = [calculator outputTextFromSum:sum];
+            [self.outputLabel setText:labelText];
+        } else {
+            [self.outputLabel setText:error.domain];
+        }
+    }];
 }
 
 - (BOOL)inputIsValid:(NSString *)input
