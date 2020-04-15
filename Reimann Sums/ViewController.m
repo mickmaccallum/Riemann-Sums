@@ -117,12 +117,15 @@
 
 - (void)validationFailedForField:(NSString *)fieldName
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                    message:[NSString stringWithFormat:@"%@ field contains non-numerical characters",fieldName]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"Dismiss"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
+    NSString *message = [NSString stringWithFormat:@"%@ field contains non-numerical characters", fieldName];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:nil];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
